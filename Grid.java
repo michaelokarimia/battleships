@@ -78,14 +78,11 @@ public class Grid implements Serializable
 		
 		@return a boolean value, true if the grid contains a ship and false if it contains either a miss or empty		
 	*/
-	public boolean checkGrid(int i, int j)
+	public boolean isValidPlaceForAShip(int i, int j)
 	{
 		int index;
 		index = this.getGridVal(i,j);
-		/*
-		if (index == 0)
-			return false;
-			*/
+
 		if (index >1 && index <8 ) 
 			return true;
 		
@@ -130,8 +127,9 @@ public class Grid implements Serializable
 	}
 	
 	public boolean checkAirSunk()
-	{
-		System.out.print(this.aircraftCarrier.toString()); 
+	{		
+		//System.out.print(this.aircraftCarrier.toString()); 
+
 		return aircraftCarrier.checkSunk();
 	}
 	

@@ -247,7 +247,7 @@ public class TestAgentSat
 						else 
 						{
 							int loop =0;
-							while(computerAttackBoard.checkGrid(i,j) && !noneFound)
+							while(computerAttackBoard.isValidPlaceForAShip(i,j) && !noneFound)
 							{
 								if (loop ==100)
 									noneFound = true;

@@ -143,7 +143,7 @@ public class TestAgentMonday
 						int checki = m.getHotspotI();
 						int checkj = m.getHotspotJ();
 						
-						if(computerAttackBoard.checkGrid(checki,checkj))
+						if(computerAttackBoard.isValidPlaceForAShip(checki,checkj))
 						{				
 							i=m.getHotspotI();
 							j=m.getHotspotJ();
@@ -182,7 +182,7 @@ public class TestAgentMonday
 						else 
 						{
 							int loop =0;
-							while(computerAttackBoard.checkGrid(i,j) && !noneFound)
+							while(computerAttackBoard.isValidPlaceForAShip(i,j) && !noneFound)
 							{
 								if (loop ==100)
 									noneFound = true;

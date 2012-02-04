@@ -8,7 +8,7 @@ class GUI extends JFrame
 {
 	
 			
-		private Grid compHome;
+		Grid compHome;
 		private Grid compAtt;
 		private Grid playerAtt;
 		private InfluenceMap m;
@@ -21,7 +21,7 @@ class GUI extends JFrame
 		private int i;
 		private int j;
 		
-		private GameState gameState;
+		GameState gameState;
 		
 		private boolean playerWins;
 		private boolean agentWins;
@@ -43,17 +43,15 @@ class GUI extends JFrame
 		private boolean battlePlaced;
 		private boolean airPlaced;
 
-		private boolean agentMineSunk;
-		private boolean agentDestSunk;
-		private boolean agentSubSunk;
-		private boolean agentBattleSunk;
-		private boolean agentAirSunk;
+		boolean agentMineSunk;
+		boolean agentDestSunk;
+		boolean agentSubSunk;
+		boolean agentBattleSunk;
+		boolean agentAirSunk;
 		
-		private boolean playerMineSunk;
-		private boolean playerDestSunk;
-		private boolean playerSubSunk;
-		private boolean playerBattleSunk;
-				
+		boolean playerMineSunk;
+		boolean playerDestSunk;
+		boolean playerSubSunk;
 		private boolean paintMineSunk;
 		private boolean paintDestSunk;
 		private boolean paintSubSunk;
@@ -61,10 +59,7 @@ class GUI extends JFrame
 		private boolean paintAirSunk;
 		
 		
-		private boolean allAgentShipsSunk;
-		private boolean allPlayerShipsSunk;
-		
-	public GUI(GameState paramGameState)
+		public GUI(GameState paramGameState)
 	{
 		super("Battleships");	
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,10 +88,7 @@ class GUI extends JFrame
 		paintSubSunk= false;
 		paintBattleSunk= false;
 		paintAirSunk= false;
-		
-		allAgentShipsSunk = false;
-		allPlayerShipsSunk = false;
-		
+	
 		gameState = paramGameState;
 		playerWins = false;
 		
@@ -385,13 +377,7 @@ class GUI extends JFrame
 		 playerMineSunk= false;
 		 playerDestSunk= false;
 		 playerSubSunk= false;
-		 playerBattleSunk= false;
-				
-		 allAgentShipsSunk= false;
-		 allPlayerShipsSunk= false;
-		
-		//this = new GUI();
-		
+		 		
 		playerTurn = false;
 		deployed = false;
 		
@@ -406,10 +392,6 @@ class GUI extends JFrame
 		
 		setHoriz(true);
 		showMap= true;
-		
-		allAgentShipsSunk = false;
-		allPlayerShipsSunk = false;
-		
 		
 		playerWins = false;
 		
@@ -764,26 +746,7 @@ class GUI extends JFrame
 		return out1;
 	}
 
-	public void AllAgentShipsSunk()
-	{
-		allAgentShipsSunk=true;
-	}
 	
-	
-	public void AllPlayerShipsSunk()
-	{
-		allPlayerShipsSunk=true;
-	}
-	
-	public boolean getAgentShipsSunk()
-	{
-		return allAgentShipsSunk;
-	}
-	
-	public boolean getPlayerShipsSunk()
-	{
-		return allPlayerShipsSunk;
-	}
 	
 	public boolean getPlayerWins()
 	{
@@ -926,7 +889,7 @@ class GUI extends JFrame
 	
 	public void paintSunk()
 	{
-		this.checkSunk();
+		this.gameState.isAShipSunk(this);
 		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 		{
 			for (int j = 0; j < 10; j++)//change this to CoLumns for default
@@ -948,64 +911,7 @@ class GUI extends JFrame
 		}
 	}
 	
-	public void checkSunk()
-	{
-		if(gameState.playerHome.checkAirSunk())
-		{
-			gameState.playerAirSunk();			
-		}
-		if(gameState.playerHome.checkBattleSunk())
-		{
-			playerBattleSunk = true;
-		}
-		if(gameState.playerHome.checkDestSunk())
-		{
-			playerDestSunk = true;
-		}
-		if(gameState.playerHome.checkSubSunk())
-		{
-			playerSubSunk = true;
-		}
-		if(gameState.playerHome.checkMineSunk())
-		{
-			playerMineSunk = true;
-		}
-	
-		if(compHome.checkAirSunk())
-		{
-			agentAirSunk = true;
-	//		outText.setText("You Have sunk the Agent's Aircraft Carrier");
-		}
-		if(compHome.checkBattleSunk())
-		{
-			agentBattleSunk = true;
-		//	outText.setText("You Have sunk the Agent's Battleship");
-		}
-		if(compHome.checkDestSunk())
-		{
-			agentDestSunk = true;
-		//	outText.setText("You Have sunk the Agent's Destroyer");
-		}
-		if(compHome.checkSubSunk())
-		{
-			agentSubSunk = true;
-			//outText.setText("You Have sunk the Agent's Submarine");
-		}
-		if(compHome.checkMineSunk())
-		{
-			agentMineSunk = true;
-			
-		}
-		
-		if(agentAirSunk&&agentBattleSunk&&agentDestSunk&&agentSubSunk&&agentMineSunk)
-		this.AllAgentShipsSunk();
-		
-		if(gameState.IsplayerAircraftCarrierSunk()&&playerBattleSunk&&playerDestSunk&&playerSubSunk&&playerMineSunk)
-		this.AllPlayerShipsSunk();
-
-	}
-
-public void outputHitList()
+	public void outputHitList()
 {
 	
 		if(compHome.checkAirSunk())
@@ -1148,14 +1054,14 @@ public void outputHitList()
 			
 			while (gui.getPlayerTurn())
 			{
-				gui.checkSunk();/*
+				gui.gameState.isAShipSunk(gui);/*
 			System.out.println("AC Sunk " + compHome.checkAirSunk());
 			System.out.println("bat Sunk " + compHome.checkBattleSunk());
 			System.out.println("dest Sunk " + compHome.checkDestSunk());
 			System.out.println("sub Sunk " + compHome.checkSubSunk());
 			System.out.println("mine Sunk " + compHome.checkMineSunk());
 			*/
-			if(gui.getAgentShipsSunk())
+			if(gui.gameState.areAllAgentShipsSunk())
 			{
 				System.out.println("All sunk");
 				gameState.SetGameOver();
@@ -1265,7 +1171,7 @@ public void outputHitList()
 					}
 			}
 			
-			gui.checkSunk();
+			gui.gameState.isAShipSunk(gui);
 			
 		
 			try {
@@ -1282,7 +1188,7 @@ public void outputHitList()
 				g.setPlayerWins();
 			}
 			*/
-			if(gui.getPlayerShipsSunk())
+			if(gui.gameState.getPlayerShipsSunk())
 			{
 				gui.setAgentWins();
 				gameState.SetGameOver();
@@ -1308,10 +1214,6 @@ public void outputHitList()
 		
 		}
 
-	private void setGameOver() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private void setHoriz(boolean horiz) {
 		this.horiz = horiz;
@@ -1407,17 +1309,16 @@ class AttackMousePressListener extends MouseAdapter
 				else if (y <200)
 					gridi=9;
 
-				//compHome.shot(gridi,gridj);
+				
 				if(gui.getPlayerTurn()&&!gui.getGameOver()&&gui.deployed())
 				{
 					System.out.println(gui.shot(gridi,gridj));
-					gui.checkSunk();
+					gui.gameState.isAShipSunk(gui);
 				}
-				//Miss.paint(g,(gridj*20),(gridi*20));
-					
+				
 				System.out.println("Element corresponds to " + gridi + gridj);
 				
-				//repaint();
+				
 			}
 			/*
 			public void mouseRelased(MouseEvent event){}

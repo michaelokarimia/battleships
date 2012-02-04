@@ -133,7 +133,7 @@ public class Agent
 						else 
 						{
 							int loop =0;
-							while(g.checkGrid(i,j) && !noneFound)
+							while(g.isValidPlaceForAShip(i,j) && !noneFound)
 							{
 								if (loop ==100)
 									noneFound = true;
