@@ -1099,7 +1099,7 @@ public void outputHitList()
 		Grid playerAtt = new Grid(10,10);
 		InfluenceMap m = new InfluenceMap();
 		
-		GUI g = new GUI();
+		GUI gui = new GUI();
 		//g.startDeployment();
 		/*\
 		compHome.addAir(0,0,1);
@@ -1112,7 +1112,7 @@ public void outputHitList()
 		
 		//g.playerTurn();
 			
-	g.setGrids(compHome,compAtt,playerHome,playerAtt,m);
+	gui.setGrids(compHome,compAtt,playerHome,playerAtt,m);
 	
 		Agent smith = new Agent();
 	//	g.agentTurn();
@@ -1120,14 +1120,14 @@ public void outputHitList()
 	//	System.out.println("comp home");
 	//	compHome.toString();
 		
-	System.out.println("PlayerTurn " + g.getPlayerTurn());
-	System.out.println("Deployed " + g.deployed());
+	System.out.println("PlayerTurn " + gui.getPlayerTurn());
+	System.out.println("Deployed " + gui.deployed());
 	
-	System.out.println("PlayerTurn " + g.getPlayerTurn());	
-	System.out.println("Deployed " + g.deployed());
+	System.out.println("PlayerTurn " + gui.getPlayerTurn());	
+	System.out.println("Deployed " + gui.deployed());
 		
 	
-	while(!g.deployed())
+	while(!gui.deployed())
 	{
 		//Systems.out.println()
 		//wait
@@ -1142,30 +1142,30 @@ public void outputHitList()
 	compHome.addSub(3,0,0);
 	compHome.addDest(4,0,0);
 	compHome.addMine(5,0,0);*/
-	g.setGrids(compHome,compAtt,playerHome,playerAtt,m);
+	gui.setGrids(compHome,compAtt,playerHome,playerAtt,m);
 		//g.paintMap();
 
-		g.playerTurn();
+		gui.playerTurn();
 	//=====================Game logic=======================================
 		
-		while (!g.getGameOver() && g.deployed())
+		while (!gui.getGameOver() && gui.deployed())
 		{
 			
-			while (g.getPlayerTurn())
+			while (gui.getPlayerTurn())
 			{
-				g.checkSunk();/*
+				gui.checkSunk();/*
 			System.out.println("AC Sunk " + compHome.checkAirSunk());
 			System.out.println("bat Sunk " + compHome.checkBattleSunk());
 			System.out.println("dest Sunk " + compHome.checkDestSunk());
 			System.out.println("sub Sunk " + compHome.checkSubSunk());
 			System.out.println("mine Sunk " + compHome.checkMineSunk());
 			*/
-			if(g.getAgentShipsSunk())
+			if(gui.getAgentShipsSunk())
 			{
 				System.out.println("All sunk");
-				g.setGameOver();
-				g.setPlayerWins();
-				g.agentTurn();
+				gui.setGameOver();
+				gui.setPlayerWins();
+				gui.agentTurn();
 			}
 			/*
 			if(g.getPlayerShipsSunk())
@@ -1179,15 +1179,15 @@ public void outputHitList()
 				//g.agentTurn();
 				
 			}
-			g.repaint();
+			gui.repaint();
 	//		System.out.println("AgentTurnNoWNOWNOWNOWNOW!!");
 			
-			while(!g.getPlayerTurn() &&!g.getGameOver()&&g.deployed())
+			while(!gui.getPlayerTurn() &&!gui.getGameOver()&&gui.deployed())
 			{
 			
 			System.out.println("agent turn");
 			smith.nextShot(m,compAtt);
-			g.agentShot(smith.getI(),smith.getJ());
+			gui.agentShot(smith.getI(),smith.getJ());
 			System.out.println("shot at " + smith.getI() + " " +smith.getJ());
 			System.out.println(compAtt.toString());
 			//if(playerHome.get(i,j
@@ -1195,7 +1195,7 @@ public void outputHitList()
 			
 			
 			System.out.println("Player Home board \n" +playerHome.toString());
-			if(playerHome.checkMineSunk()&& !g.getPaintMineSunk())
+			if(playerHome.checkMineSunk()&& !gui.getPaintMineSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
@@ -1204,13 +1204,13 @@ public void outputHitList()
 							if(playerHome.getGridVal(i,j) ==-6)
 							{
 								smith.setSunk(i,j);
-								g.setPaintMineSunk();
+								gui.setPaintMineSunk();
 							}
 						}
 					}
 			}
 			
-			if(playerHome.checkDestSunk() && !g.getPaintDestSunk())
+			if(playerHome.checkDestSunk() && !gui.getPaintDestSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
@@ -1219,13 +1219,13 @@ public void outputHitList()
 							if(playerHome.getGridVal(i,j) ==-1)
 							{
 								smith.setSunk(i,j);
-								g.setPaintDestSunk();
+								gui.setPaintDestSunk();
 							}
 						}
 					}
 			}
 			
-			if(playerHome.checkSubSunk() && !g.getPaintSubSunk())
+			if(playerHome.checkSubSunk() && !gui.getPaintSubSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
@@ -1234,13 +1234,13 @@ public void outputHitList()
 							if(playerHome.getGridVal(i,j) ==-5)
 							{
 								smith.setSunk(i,j);
-								g.setPaintSubSunk();
+								gui.setPaintSubSunk();
 							}
 						}
 					}
 			}
 			
-			if(playerHome.checkBattleSunk() && !g.getPaintBattleSunk())
+			if(playerHome.checkBattleSunk() && !gui.getPaintBattleSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
@@ -1249,13 +1249,13 @@ public void outputHitList()
 							if(playerHome.getGridVal(i,j) ==-4)
 							{
 								smith.setSunk(i,j);
-								g.setPaintBattleSunk();
+								gui.setPaintBattleSunk();
 							}
 						}
 					}
 			}
 			
-			if(playerHome.checkAirSunk() && !g.getPaintAirSunk())
+			if(playerHome.checkAirSunk() && !gui.getPaintAirSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
@@ -1264,16 +1264,21 @@ public void outputHitList()
 							if(playerHome.getGridVal(i,j) ==-3)
 							{
 								smith.setSunk(i,j);
-								g.setPaintAirSunk();
+								gui.setPaintAirSunk();
 							}
 						}
 					}
 			}
 			
-			g.checkSunk();
+			gui.checkSunk();
 			
 		
-			
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			/*
 			if(g.getAgentShipsSunk())
@@ -1282,11 +1287,11 @@ public void outputHitList()
 				g.setPlayerWins();
 			}
 			*/
-			if(g.getPlayerShipsSunk())
+			if(gui.getPlayerShipsSunk())
 			{
-				g.setAgentWins();
-				g.setGameOver();
-				g.playerTurn();
+				gui.setAgentWins();
+				gui.setGameOver();
+				gui.playerTurn();
 				
 			}			
 			}
@@ -1295,15 +1300,15 @@ public void outputHitList()
 		}
 		
 		System.out.println("Game Over!");
-		if(g.getPlayerWins())
+		if(gui.getPlayerWins())
 		{
 			System.out.println("Player Wins");
-			g.setOut("Game Over! You Win!");
+			gui.setOut("Game Over! You Win!");
 		}
 		else
 		{
 			System.out.println("Computer Wins");
-			g.setOut("Game Over! Agent Wins!");
+			gui.setOut("Game Over! Agent Wins!");
 		}
 		
 		}	
