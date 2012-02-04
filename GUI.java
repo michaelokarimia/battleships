@@ -73,7 +73,6 @@ class GUI extends JFrame
 		contentPane.setLayout(new BorderLayout(2,1));
 		this.setResizable(false);
 		
-		//set variables
 		playerTurn = false;
 		deployed = false;
 		
@@ -1185,7 +1184,7 @@ public void outputHitList()
 			
 			while(!g.getPlayerTurn() &&!g.getGameOver()&&g.deployed())
 			{
-				
+			
 			System.out.println("agent turn");
 			smith.nextShot(m,compAtt);
 			g.agentShot(smith.getI(),smith.getJ());
