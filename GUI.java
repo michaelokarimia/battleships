@@ -46,12 +46,9 @@ class GUI extends JFrame
 		boolean agentMineSunk;
 		boolean agentDestSunk;
 		boolean agentSubSunk;
-		boolean agentBattleSunk;
 		boolean agentAirSunk;
 		
 		boolean playerMineSunk;
-		boolean playerDestSunk;
-		boolean playerSubSunk;
 		private boolean paintMineSunk;
 		private boolean paintDestSunk;
 		private boolean paintSubSunk;
@@ -371,13 +368,9 @@ class GUI extends JFrame
 		 agentMineSunk= false;
 		 agentDestSunk= false;
 		 agentSubSunk= false;
-		 agentBattleSunk= false;
-		 agentAirSunk= false;
-		
-		 playerMineSunk= false;
-		 playerDestSunk= false;
-		 playerSubSunk= false;
 		 		
+		 playerMineSunk= false;
+		 			 		
 		playerTurn = false;
 		deployed = false;
 		
@@ -889,18 +882,18 @@ class GUI extends JFrame
 	
 	public void paintSunk()
 	{
-		this.gameState.isAShipSunk(this);
+		this.gameState.setShipSunkStates(this);
 		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 		{
 			for (int j = 0; j < 10; j++)//change this to CoLumns for default
 			{
-				if(compHome.getGridVal(i,j) ==-3 && agentAirSunk)
+				if(compHome.getGridVal(i,j) ==-3 && gameState.agentAirSunk)
 				{					
 					Graphics ap = attackPanel.getGraphics();	
 					Sunk.paint(ap,(j*20),(i*20));
 				}
 				
-				if(compHome.getGridVal(i,j) ==-4 && agentBattleSunk)
+				if(compHome.getGridVal(i,j) ==-4 && gameState.agentBattleSunk)
 				{					
 					Graphics ap = attackPanel.getGraphics();	
 					Sunk.paint(ap,(j*20),(i*20));
@@ -1054,7 +1047,7 @@ class GUI extends JFrame
 			
 			while (gui.getPlayerTurn())
 			{
-				gui.gameState.isAShipSunk(gui);/*
+				gui.gameState.setShipSunkStates(gui);/*
 			System.out.println("AC Sunk " + compHome.checkAirSunk());
 			System.out.println("bat Sunk " + compHome.checkBattleSunk());
 			System.out.println("dest Sunk " + compHome.checkDestSunk());
@@ -1171,11 +1164,11 @@ class GUI extends JFrame
 					}
 			}
 			
-			gui.gameState.isAShipSunk(gui);
+			gui.gameState.setShipSunkStates(gui);
 			
 		
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1313,7 +1306,7 @@ class AttackMousePressListener extends MouseAdapter
 				if(gui.getPlayerTurn()&&!gui.getGameOver()&&gui.deployed())
 				{
 					System.out.println(gui.shot(gridi,gridj));
-					gui.gameState.isAShipSunk(gui);
+					gui.gameState.setShipSunkStates(gui);
 				}
 				
 				System.out.println("Element corresponds to " + gridi + gridj);

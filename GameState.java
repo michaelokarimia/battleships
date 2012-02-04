@@ -8,6 +8,10 @@ public class GameState {
 	private boolean playerBattleSunk;
 	private boolean allAgentShipsSunk;
 	private boolean allPlayerShipsSunk;
+	boolean playerSubSunk;
+	boolean playerDestSunk;
+	boolean agentBattleSunk;
+	boolean agentAirSunk;
 
 	public GameState ()
 	{
@@ -16,6 +20,9 @@ public class GameState {
 		playerBattleSunk = false;
 		allAgentShipsSunk = false;
 		allPlayerShipsSunk = false;
+		playerSubSunk = false;
+		agentAirSunk = false;
+		agentBattleSunk =false;
 		playerHome = new Grid(WidthOfGrid,HeightOfGrid);
 	}
 
@@ -34,7 +41,7 @@ public class GameState {
 	}
 
 
-	public void isAShipSunk(GUI gui)
+	public void setShipSunkStates(GUI gui)
 	{
 		if(playerHome.checkAirSunk())
 		{
@@ -46,36 +53,31 @@ public class GameState {
 		}
 		if(playerHome.checkDestSunk())
 		{
-			gui.playerDestSunk = true;
+			playerDestSunk = true;
 		}
 		if(playerHome.checkSubSunk())
 		{
-			gui.playerSubSunk = true;
+			playerSubSunk = true;
 		}
 		if(playerHome.checkMineSunk())
 		{
 			gui.playerMineSunk = true;
 		}
-	
 		if(gui.compHome.checkAirSunk())
 		{
 			gui.agentAirSunk = true;
-	//		outText.setText("You Have sunk the Agent's Aircraft Carrier");
 		}
 		if(gui.compHome.checkBattleSunk())
 		{
-			gui.agentBattleSunk = true;
-		//	outText.setText("You Have sunk the Agent's Battleship");
+			agentBattleSunk = true;
 		}
 		if(gui.compHome.checkDestSunk())
 		{
 			gui.agentDestSunk = true;
-		//	outText.setText("You Have sunk the Agent's Destroyer");
 		}
 		if(gui.compHome.checkSubSunk())
 		{
 			gui.agentSubSunk = true;
-			//outText.setText("You Have sunk the Agent's Submarine");
 		}
 		if(gui.compHome.checkMineSunk())
 		{
@@ -83,10 +85,10 @@ public class GameState {
 			
 		}
 		
-		if(gui.agentAirSunk&&gui.agentBattleSunk&&gui.agentDestSunk&&gui.agentSubSunk&&gui.agentMineSunk)
+		if(gui.agentAirSunk&&agentBattleSunk&&gui.agentDestSunk&&gui.agentSubSunk&&gui.agentMineSunk)
 			allAgentShipsSunk = true;
 		
-		if(playerAircraftCarrierSunk&&playerBattleSunk&&gui.playerDestSunk&&gui.playerSubSunk&&gui.playerMineSunk)
+		if(playerAircraftCarrierSunk&&playerBattleSunk&&playerDestSunk&&playerSubSunk&&gui.playerMineSunk)
 			allPlayerShipsSunk = true;
 	
 	}
