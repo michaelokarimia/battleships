@@ -109,56 +109,30 @@ public class Grid implements Serializable
 	public boolean checkMineSunk()
 	{
 		
-		if(minesweeper.checkSunk())
-		{
-			return true;
-		}
-		else
-			return false;
+		return minesweeper.checkSunk();		
 	}
 	
 	public boolean checkSubSunk()
 	{
-		
-		if(submarine.checkSunk())
-		{
-			return true;
-		}
-		else
-			return false;
+		return submarine.checkSunk();
 	}
 	
 	public boolean checkDestSunk()
 	{
 		
-		if(destroyer.checkSunk())
-		{
-			return true;
-		}
-		else
-			return false;
+		return destroyer.checkSunk();
 	}
 	
 	public boolean checkBattleSunk()
 	{
 		
-		if(battleship.checkSunk())
-		{
-			return true;
-		}
-		else
-			return false;
+		return battleship.checkSunk();
 	}
 	
 	public boolean checkAirSunk()
 	{
 		
-		if(aircraftCarrier.checkSunk())
-		{
-			return true;
-		}
-		else
-			return false;
+		return aircraftCarrier.checkSunk();
 	}
 	
 	
