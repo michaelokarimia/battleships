@@ -131,7 +131,7 @@ public class Grid implements Serializable
 	
 	public boolean checkAirSunk()
 	{
-		
+		System.out.print(this.aircraftCarrier.toString()); 
 		return aircraftCarrier.checkSunk();
 	}
 	

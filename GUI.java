@@ -10,7 +10,6 @@ class GUI extends JFrame
 			
 		private Grid compHome;
 		private Grid compAtt;
-		private Grid playerHome;
 		private Grid playerAtt;
 		private InfluenceMap m;
 		
@@ -54,8 +53,7 @@ class GUI extends JFrame
 		private boolean playerDestSunk;
 		private boolean playerSubSunk;
 		private boolean playerBattleSunk;
-		private boolean playerAirSunk;
-		
+				
 		private boolean paintMineSunk;
 		private boolean paintDestSunk;
 		private boolean paintSubSunk;
@@ -86,7 +84,7 @@ class GUI extends JFrame
 		battlePlaced = false;
 		airPlaced = false;
 		
-		horiz= true;
+		setHoriz(true);
 		showMap= true;
 		
 		
@@ -369,7 +367,7 @@ class GUI extends JFrame
 		 playerDeployment= false;
 		 agentDeployment= false;
 		
-		 horiz= false;
+		 setHoriz(false);
 		 showMap= false;
 		
 		 minePlaced= false;
@@ -388,7 +386,6 @@ class GUI extends JFrame
 		 playerDestSunk= false;
 		 playerSubSunk= false;
 		 playerBattleSunk= false;
-		 playerAirSunk= false;
 				
 		 allAgentShipsSunk= false;
 		 allPlayerShipsSunk= false;
@@ -407,7 +404,7 @@ class GUI extends JFrame
 		battlePlaced = false;
 		airPlaced = false;
 		
-		horiz= true;
+		setHoriz(true);
 		showMap= true;
 		
 		allAgentShipsSunk = false;
@@ -418,11 +415,11 @@ class GUI extends JFrame
 		
 		Grid compHome = new Grid(10,10);
 		Grid compAtt = new Grid(10,10);
-		Grid playerHome = new Grid(10,10);
+	
 		Grid playerAtt = new Grid(10,10);
 		InfluenceMap m = new InfluenceMap();
 		
-		this.setGrids(compHome,compAtt,playerHome,playerAtt,m);
+		this.setGrids(compHome,compAtt, gameState.playerHome,playerAtt,m);
 		
 		this.pack();
 		this.setSize(640,400);
@@ -441,7 +438,7 @@ class GUI extends JFrame
 	{
 		compHome = cHome;
 		compAtt = cAtt;
-		playerHome = pHome;
+		gameState.playerHome = pHome;
 		playerAtt = pAtt;
 		m = map;
 	}
@@ -452,17 +449,17 @@ class GUI extends JFrame
 		String out ="";
 		if(!airPlaced)
 		{
-			if(horiz)
+			if(isShipRotatedHorizonally())
 			{
 				boolean valid;
-				valid = playerHome.addAir(i,j,0);
+				valid = gameState.playerHome.addAir(i,j,0);
 		
 				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
 					AircraftCarrierH.paint(hp,(j*20),(i*20));
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					airPlaced = true;
 					outText.setText("Air Placed");
 				}
@@ -470,26 +467,26 @@ class GUI extends JFrame
 				{
 					outText.setText("Aircraft Carrier Will Not Fit Here");
 					out ="not valid";
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 				}	
 			}
 		
 		else 
 		{
 			boolean valid;
-			valid = playerHome.addAir(i,j,1);
+			valid = gameState.playerHome.addAir(i,j,1);
 			if(valid)
 			{
 				Graphics hp = homePanel.getGraphics();	
 				AircraftCarrier.paint(hp,(j*20),(i*20));
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				airPlaced = true;
 				outText.setText("Air Placed");
 			}
 			else
 			{
 				out ="not valid";
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 			}	
 		
 		}
@@ -503,24 +500,24 @@ class GUI extends JFrame
 		String out ="";
 		if(airPlaced && !battlePlaced)
 		{
-			if(horiz)
+			if(isShipRotatedHorizonally())
 			{
 				boolean valid;
-				valid = playerHome.addBattle(i,j,0);
+				valid = gameState.playerHome.addBattle(i,j,0);
 		
 				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
 					BattleshipH.paint(hp,(j*20),(i*20));
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					battlePlaced = true;
 				//	outText.setText("Battleship Placed");
 				}
 				else
 				{
 					out ="not valid";
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					outText.setText("Battleships Will Not Fit Here");
 				}	
 			}
@@ -528,19 +525,19 @@ class GUI extends JFrame
 		else 
 		{
 			boolean valid;
-			valid = playerHome.addBattle(i,j,1);
+			valid = gameState.playerHome.addBattle(i,j,1);
 			if(valid)
 			{
 				Graphics hp = homePanel.getGraphics();	
 				Battleship.paint(hp,(j*20),(i*20));
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				battlePlaced = true;
 				outText.setText("Battleship Placed");
 			}
 			else
 			{
 				out ="not valid";
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				outText.setText("Battleships Will Not Fit Here");
 			}	
 		
@@ -555,24 +552,24 @@ class GUI extends JFrame
 		String out ="";
 		if(airPlaced && battlePlaced && !destPlaced)
 		{
-			if(horiz)
+			if(isShipRotatedHorizonally())
 			{
 				boolean valid;
-				valid = playerHome.addDest(i,j,0);
+				valid = gameState.playerHome.addDest(i,j,0);
 		
 				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
 					DestroyerH.paint(hp,(j*20),(i*20));
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					destPlaced = true;
 					outText.setText("Destroyer Placed");
 				}
 				else
 				{
 					out ="not valid";
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					outText.setText("Destroyer Will Not Fit Here");
 				}	
 			}
@@ -580,19 +577,19 @@ class GUI extends JFrame
 		else 
 		{
 			boolean valid;
-			valid = playerHome.addDest(i,j,1);
+			valid = gameState.playerHome.addDest(i,j,1);
 			if(valid)
 			{
 				Graphics hp = homePanel.getGraphics();	
 				Destroyer.paint(hp,(j*20),(i*20));
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				destPlaced = true;
 				outText.setText("Destroyer Placed");
 			}
 			else
 			{
 				out ="not valid";
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				
 			}	
 		
@@ -607,24 +604,24 @@ class GUI extends JFrame
 		String out ="";
 		if(airPlaced && battlePlaced && destPlaced && !subPlaced)
 		{
-			if(horiz)
+			if(isShipRotatedHorizonally())
 			{
 				boolean valid;
-				valid = playerHome.addSub(i,j,0);
+				valid = gameState.playerHome.addSub(i,j,0);
 		
 				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
 					SubmarineH.paint(hp,(j*20),(i*20));
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					subPlaced = true;
 					outText.setText("Submarine Placed");
 				}
 				else
 				{
 					out ="not valid";
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					outText.setText("Submarine Will Not Fit Here");
 				}	
 			}
@@ -632,19 +629,19 @@ class GUI extends JFrame
 		else 
 		{
 			boolean valid;
-			valid = playerHome.addSub(i,j,1);
+			valid = gameState.playerHome.addSub(i,j,1);
 			if(valid)
 			{
 				Graphics hp = homePanel.getGraphics();	
 				Submarine.paint(hp,(j*20),(i*20));
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				subPlaced = true;
 				outText.setText("Submarine Placed");
 			}
 			else
 			{
 				out ="not valid";
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				outText.setText("Submarine Will Not Fit Here");
 			}	
 		
@@ -660,24 +657,24 @@ class GUI extends JFrame
 		String out ="";
 		if(airPlaced && battlePlaced && destPlaced && subPlaced && !minePlaced)
 		{
-			if(horiz)
+			if(isShipRotatedHorizonally())
 			{
 				boolean valid;
-				valid = playerHome.addMine(i,j,0);
+				valid = gameState.playerHome.addMine(i,j,0);
 		
 				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
 					MinesweeperH.paint(hp,(j*20),(i*20));
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					minePlaced = true;
 					outText.setText("Minesweeper Placed");
 				}
 				else
 				{
 					out ="not valid";
-					out = out + playerHome.toString();
+					out = out + gameState.playerHome.toString();
 					outText.setText("Minesweeper Will Not Fit Here");
 				}	
 			}
@@ -685,19 +682,19 @@ class GUI extends JFrame
 		else 
 		{
 			boolean valid;
-			valid = playerHome.addMine(i,j,1);
+			valid = gameState.playerHome.addMine(i,j,1);
 			if(valid)
 			{
 				Graphics hp = homePanel.getGraphics();	
 				Minesweeper.paint(hp,(j*20),(i*20));
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				minePlaced = true;
 				outText.setText("Minesweeper Placed");
 			}
 			else
 			{
 				out ="not valid";
-				out = out + playerHome.toString();
+				out = out + gameState.playerHome.toString();
 				outText.setText("Minesweeper Will Not Fit Here");
 			}	
 		
@@ -714,12 +711,12 @@ class GUI extends JFrame
 	
 	public boolean rotate()
 	{
-		horiz= !horiz;
-		if(horiz&&!deployed)
+		setHoriz(!isShipRotatedHorizonally());
+		if(isShipRotatedHorizonally()&&!deployed)
 		outText.setText("Ship Will Be Placed Horizontally");
-		if(!horiz&&!deployed)
+		if(!isShipRotatedHorizonally()&&!deployed)
 		outText.setText("Ship Will Be Placed Vertically");
-		return horiz;
+		return isShipRotatedHorizonally();
 	}
 	
 	public void showMap()
@@ -953,24 +950,23 @@ class GUI extends JFrame
 	
 	public void checkSunk()
 	{
-		if(playerHome.checkAirSunk())
+		if(gameState.playerHome.checkAirSunk())
 		{
-			playerAirSunk = true;
-				
+			gameState.playerAirSunk();			
 		}
-		if(playerHome.checkBattleSunk())
+		if(gameState.playerHome.checkBattleSunk())
 		{
 			playerBattleSunk = true;
 		}
-		if(playerHome.checkDestSunk())
+		if(gameState.playerHome.checkDestSunk())
 		{
 			playerDestSunk = true;
 		}
-		if(playerHome.checkSubSunk())
+		if(gameState.playerHome.checkSubSunk())
 		{
 			playerSubSunk = true;
 		}
-		if(playerHome.checkMineSunk())
+		if(gameState.playerHome.checkMineSunk())
 		{
 			playerMineSunk = true;
 		}
@@ -1004,7 +1000,7 @@ class GUI extends JFrame
 		if(agentAirSunk&&agentBattleSunk&&agentDestSunk&&agentSubSunk&&agentMineSunk)
 		this.AllAgentShipsSunk();
 		
-		if(playerAirSunk&&playerBattleSunk&&playerDestSunk&&playerSubSunk&&playerMineSunk)
+		if(gameState.IsplayerAircraftCarrierSunk()&&playerBattleSunk&&playerDestSunk&&playerSubSunk&&playerMineSunk)
 		this.AllPlayerShipsSunk();
 
 	}
@@ -1042,7 +1038,7 @@ public void outputHitList()
 	{
 		if(agentTurn && deployed)
 		{
-		int sqrVal = playerHome.getGridVal(X,Y);
+		int sqrVal = gameState.playerHome.getGridVal(X,Y);
 						
 						if(sqrVal < 0 || sqrVal==1)
 						{
@@ -1051,7 +1047,7 @@ public void outputHitList()
 							
 						if(sqrVal == 0)
 						{
-							System.out.println(playerHome.shot(X,Y));
+							System.out.println(gameState.playerHome.shot(X,Y));
 							compAtt.update(X,Y,1);
 							m.miss(X,Y);
 							this.paintMap();
@@ -1063,7 +1059,7 @@ public void outputHitList()
 						
 						if(sqrVal > 1)
 						{
-							System.out.println(playerHome.shot(X,Y));
+							System.out.println(gameState.playerHome.shot(X,Y));
 							compAtt.update(X,Y,8);
 							m.hit(X,Y);
 							Graphics hp = homePanel.getGraphics();	
@@ -1095,7 +1091,6 @@ public void outputHitList()
 		
 		Grid compHome = new Grid(10,10);
 		Grid compAtt = new Grid(10,10);
-		Grid playerHome = new Grid(10,10);
 		Grid playerAtt = new Grid(10,10);
 		InfluenceMap m = new InfluenceMap();
 		
@@ -1112,7 +1107,7 @@ public void outputHitList()
 		
 		//g.playerTurn();
 			
-	gui.setGrids(compHome,compAtt,playerHome,playerAtt,m);
+	gui.setGrids(compHome,compAtt , gameState.playerHome,playerAtt,m);
 	
 		Agent smith = new Agent();
 	//	g.agentTurn();
@@ -1142,7 +1137,7 @@ public void outputHitList()
 	compHome.addSub(3,0,0);
 	compHome.addDest(4,0,0);
 	compHome.addMine(5,0,0);*/
-	gui.setGrids(compHome,compAtt,playerHome,playerAtt,m);
+	gui.setGrids(compHome,compAtt, gameState.playerHome,playerAtt,m);
 		//g.paintMap();
 
 		gui.playerTurn();
@@ -1190,18 +1185,18 @@ public void outputHitList()
 			gui.agentShot(smith.getI(),smith.getJ());
 			System.out.println("shot at " + smith.getI() + " " +smith.getJ());
 			System.out.println(compAtt.toString());
-			//if(playerHome.get(i,j
+			//if(gameState.playerHome.get(i,j
 			
 			
 			
-			System.out.println("Player Home board \n" +playerHome.toString());
-			if(playerHome.checkMineSunk()&& !gui.getPaintMineSunk())
+			System.out.println("Player Home board \n" +gameState.playerHome.toString());
+			if(gameState.playerHome.checkMineSunk()&& !gui.getPaintMineSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(playerHome.getGridVal(i,j) ==-6)
+							if(gameState.playerHome.getGridVal(i,j) ==-6)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintMineSunk();
@@ -1210,13 +1205,13 @@ public void outputHitList()
 					}
 			}
 			
-			if(playerHome.checkDestSunk() && !gui.getPaintDestSunk())
+			if(gameState.playerHome.checkDestSunk() && !gui.getPaintDestSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(playerHome.getGridVal(i,j) ==-1)
+							if(gameState.playerHome.getGridVal(i,j) ==-1)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintDestSunk();
@@ -1225,13 +1220,13 @@ public void outputHitList()
 					}
 			}
 			
-			if(playerHome.checkSubSunk() && !gui.getPaintSubSunk())
+			if(gameState.playerHome.checkSubSunk() && !gui.getPaintSubSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(playerHome.getGridVal(i,j) ==-5)
+							if(gameState.playerHome.getGridVal(i,j) ==-5)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintSubSunk();
@@ -1240,13 +1235,13 @@ public void outputHitList()
 					}
 			}
 			
-			if(playerHome.checkBattleSunk() && !gui.getPaintBattleSunk())
+			if(gameState.playerHome.checkBattleSunk() && !gui.getPaintBattleSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(playerHome.getGridVal(i,j) ==-4)
+							if(gameState.playerHome.getGridVal(i,j) ==-4)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintBattleSunk();
@@ -1255,13 +1250,13 @@ public void outputHitList()
 					}
 			}
 			
-			if(playerHome.checkAirSunk() && !gui.getPaintAirSunk())
+			if(gameState.playerHome.checkAirSunk() && !gui.getPaintAirSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(playerHome.getGridVal(i,j) ==-3)
+							if(gameState.playerHome.getGridVal(i,j) ==-3)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintAirSunk();
@@ -1316,6 +1311,14 @@ public void outputHitList()
 	private void setGameOver() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	private void setHoriz(boolean horiz) {
+		this.horiz = horiz;
+	}
+
+	private boolean isShipRotatedHorizonally() {
+		return horiz;
 	}	
 		
 		/*
