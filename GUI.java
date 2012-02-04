@@ -22,7 +22,8 @@ class GUI extends JFrame
 		private int i;
 		private int j;
 		
-		private boolean gameOver;
+		private GameState gameState;
+		
 		private boolean playerWins;
 		private boolean agentWins;
 		
@@ -65,7 +66,7 @@ class GUI extends JFrame
 		private boolean allAgentShipsSunk;
 		private boolean allPlayerShipsSunk;
 		
-	public GUI()
+	public GUI(GameState paramGameState)
 	{
 		super("Battleships");	
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +99,7 @@ class GUI extends JFrame
 		allAgentShipsSunk = false;
 		allPlayerShipsSunk = false;
 		
-		gameOver = false;
+		gameState = paramGameState;
 		playerWins = false;
 		
 		
@@ -356,7 +357,7 @@ class GUI extends JFrame
 		 i = 0;
 		 j = 0;
 		
-		 gameOver= false;
+		 gameState = new GameState();
 		 playerWins= false;
 		 agentWins= false;
 		
@@ -412,7 +413,7 @@ class GUI extends JFrame
 		allAgentShipsSunk = false;
 		allPlayerShipsSunk = false;
 		
-		gameOver = false;
+		
 		playerWins = false;
 		
 		Grid compHome = new Grid(10,10);
@@ -811,7 +812,7 @@ class GUI extends JFrame
 	
 	public boolean getGameOver()
 	{
-		return gameOver;
+		return gameState.IsGameOver();
 	}
 
 	public boolean deployed()
@@ -819,10 +820,7 @@ class GUI extends JFrame
 		return deployed;
 	}
 	
-	public void setGameOver()
-	{
-		gameOver = true;
-	}
+
 	
 	public void playerTurn()
 	{
@@ -1092,6 +1090,8 @@ public void outputHitList()
 	
 	public static void main (String args[])
 	{
+		GameState gameState = new GameState();
+		
 		
 		Grid compHome = new Grid(10,10);
 		Grid compAtt = new Grid(10,10);
@@ -1099,7 +1099,7 @@ public void outputHitList()
 		Grid playerAtt = new Grid(10,10);
 		InfluenceMap m = new InfluenceMap();
 		
-		GUI gui = new GUI();
+		GUI gui = new GUI(gameState);
 		//g.startDeployment();
 		/*\
 		compHome.addAir(0,0,1);
@@ -1163,7 +1163,7 @@ public void outputHitList()
 			if(gui.getAgentShipsSunk())
 			{
 				System.out.println("All sunk");
-				gui.setGameOver();
+				gameState.SetGameOver();
 				gui.setPlayerWins();
 				gui.agentTurn();
 			}
@@ -1290,7 +1290,7 @@ public void outputHitList()
 			if(gui.getPlayerShipsSunk())
 			{
 				gui.setAgentWins();
-				gui.setGameOver();
+				gameState.SetGameOver();
 				gui.playerTurn();
 				
 			}			
@@ -1311,7 +1311,12 @@ public void outputHitList()
 			gui.setOut("Game Over! Agent Wins!");
 		}
 		
-		}	
+		}
+
+	private void setGameOver() {
+		// TODO Auto-generated method stub
+		
+	}	
 		
 		/*
 		smith.nextShot(m, compAtt);

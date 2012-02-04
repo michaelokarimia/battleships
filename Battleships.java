@@ -23,8 +23,7 @@ class Battleships
 		Grid playerAtt = new Grid(10,10);
 		
 		
-		
-		GUI g = new GUI();
+
 		
 		
 	}
