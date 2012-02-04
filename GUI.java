@@ -14,15 +14,15 @@ class GUI extends JFrame
 		private Grid playerAtt;
 		private InfluenceMap m;
 		
-		private AttackPanel cG;
-		private HomePanel pG;
-		private InfluencePanel iM;
+		private AttackPanel attackPanel;
+		private HomePanel homePanel;
+		private InfluencePanel influenceMapPanel;
 		
 		private JTextField outText;
 		private int i;
 		private int j;
 		
-		private boolean gameOverMan;
+		private boolean gameOver;
 		private boolean playerWins;
 		private boolean agentWins;
 		
@@ -98,7 +98,7 @@ class GUI extends JFrame
 		allAgentShipsSunk = false;
 		allPlayerShipsSunk = false;
 		
-		gameOverMan = false;
+		gameOver = false;
 		playerWins = false;
 		
 		
@@ -120,22 +120,22 @@ class GUI extends JFrame
 		//create grids and maps
 		
 		//attack panel add listener
-		cG = new AttackPanel();
-		cG.addMouseListener(new AttackMousePressListener(cG,this));
+		attackPanel = new AttackPanel();
+		attackPanel.addMouseListener(new AttackMousePressListener(attackPanel,this));
 		
 		
-		pG = new HomePanel();
-		pG.addMouseListener(new HomeMousePressListener(pG, this));
+		homePanel = new HomePanel();
+		homePanel.addMouseListener(new HomeMousePressListener(homePanel, this));
 		
-		iM = new InfluencePanel();
+		influenceMapPanel = new InfluencePanel();
 		
-		APanel.add(cG);
+		APanel.add(attackPanel);
 		CenterPanel.add(APanel);
 		
-		HPanel.add(pG);
+		HPanel.add(homePanel);
 		CenterPanel.add(HPanel);
 		
-		IMPanel.add(iM);
+		IMPanel.add(influenceMapPanel);
 		CenterPanel.add(IMPanel);
 		
 	
@@ -272,7 +272,7 @@ class GUI extends JFrame
 	}
 	public void repaint()
 	{
-		Graphics g = cG.getGraphics();	
+		Graphics g = attackPanel.getGraphics();	
 		
 		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 		{
@@ -356,7 +356,7 @@ class GUI extends JFrame
 		 i = 0;
 		 j = 0;
 		
-		 gameOverMan= false;
+		 gameOver= false;
 		 playerWins= false;
 		 agentWins= false;
 		
@@ -412,7 +412,7 @@ class GUI extends JFrame
 		allAgentShipsSunk = false;
 		allPlayerShipsSunk = false;
 		
-		gameOverMan = false;
+		gameOver = false;
 		playerWins = false;
 		
 		Grid compHome = new Grid(10,10);
@@ -456,7 +456,7 @@ class GUI extends JFrame
 				boolean valid;
 				valid = playerHome.addAir(i,j,0);
 		
-				Graphics hp = pG.getGraphics();
+				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
@@ -479,7 +479,7 @@ class GUI extends JFrame
 			valid = playerHome.addAir(i,j,1);
 			if(valid)
 			{
-				Graphics hp = pG.getGraphics();	
+				Graphics hp = homePanel.getGraphics();	
 				AircraftCarrier.paint(hp,(j*20),(i*20));
 				out = out + playerHome.toString();
 				airPlaced = true;
@@ -507,7 +507,7 @@ class GUI extends JFrame
 				boolean valid;
 				valid = playerHome.addBattle(i,j,0);
 		
-				Graphics hp = pG.getGraphics();
+				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
@@ -530,7 +530,7 @@ class GUI extends JFrame
 			valid = playerHome.addBattle(i,j,1);
 			if(valid)
 			{
-				Graphics hp = pG.getGraphics();	
+				Graphics hp = homePanel.getGraphics();	
 				Battleship.paint(hp,(j*20),(i*20));
 				out = out + playerHome.toString();
 				battlePlaced = true;
@@ -559,7 +559,7 @@ class GUI extends JFrame
 				boolean valid;
 				valid = playerHome.addDest(i,j,0);
 		
-				Graphics hp = pG.getGraphics();
+				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
@@ -582,7 +582,7 @@ class GUI extends JFrame
 			valid = playerHome.addDest(i,j,1);
 			if(valid)
 			{
-				Graphics hp = pG.getGraphics();	
+				Graphics hp = homePanel.getGraphics();	
 				Destroyer.paint(hp,(j*20),(i*20));
 				out = out + playerHome.toString();
 				destPlaced = true;
@@ -611,7 +611,7 @@ class GUI extends JFrame
 				boolean valid;
 				valid = playerHome.addSub(i,j,0);
 		
-				Graphics hp = pG.getGraphics();
+				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
@@ -634,7 +634,7 @@ class GUI extends JFrame
 			valid = playerHome.addSub(i,j,1);
 			if(valid)
 			{
-				Graphics hp = pG.getGraphics();	
+				Graphics hp = homePanel.getGraphics();	
 				Submarine.paint(hp,(j*20),(i*20));
 				out = out + playerHome.toString();
 				subPlaced = true;
@@ -664,7 +664,7 @@ class GUI extends JFrame
 				boolean valid;
 				valid = playerHome.addMine(i,j,0);
 		
-				Graphics hp = pG.getGraphics();
+				Graphics hp = homePanel.getGraphics();
 		
 				if(valid)
 				{	
@@ -687,7 +687,7 @@ class GUI extends JFrame
 			valid = playerHome.addMine(i,j,1);
 			if(valid)
 			{
-				Graphics hp = pG.getGraphics();	
+				Graphics hp = homePanel.getGraphics();	
 				Minesweeper.paint(hp,(j*20),(i*20));
 				out = out + playerHome.toString();
 				minePlaced = true;
@@ -732,7 +732,7 @@ class GUI extends JFrame
 	{
 		showMap= false;
 		
-		Graphics g = iM.getGraphics();	
+		Graphics g = influenceMapPanel.getGraphics();	
 		
 		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 		{
@@ -811,7 +811,7 @@ class GUI extends JFrame
 	
 	public boolean getGameOver()
 	{
-		return gameOverMan;
+		return gameOver;
 	}
 
 	public boolean deployed()
@@ -821,7 +821,7 @@ class GUI extends JFrame
 	
 	public void setGameOver()
 	{
-		gameOverMan = true;
+		gameOver = true;
 	}
 	
 	public void playerTurn()
@@ -874,7 +874,7 @@ class GUI extends JFrame
 				boolean hit = false;
 				hit = compHome.shot(i,j);
 		
-				Graphics ap = cG.getGraphics();
+				Graphics ap = attackPanel.getGraphics();
 		
 				if(hit)
 				{
@@ -910,7 +910,7 @@ class GUI extends JFrame
 	public void paintMap()
 	{
 		
-		Graphics g = iM.getGraphics();	
+		Graphics g = influenceMapPanel.getGraphics();	
 		
 		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 		{
@@ -938,13 +938,13 @@ class GUI extends JFrame
 			{
 				if(compHome.getGridVal(i,j) ==-3 && agentAirSunk)
 				{					
-					Graphics ap = cG.getGraphics();	
+					Graphics ap = attackPanel.getGraphics();	
 					Sunk.paint(ap,(j*20),(i*20));
 				}
 				
 				if(compHome.getGridVal(i,j) ==-4 && agentBattleSunk)
 				{					
-					Graphics ap = cG.getGraphics();	
+					Graphics ap = attackPanel.getGraphics();	
 					Sunk.paint(ap,(j*20),(i*20));
 				}
 				
@@ -1057,7 +1057,7 @@ public void outputHitList()
 							compAtt.update(X,Y,1);
 							m.miss(X,Y);
 							this.paintMap();
-							Graphics hp = pG.getGraphics();	
+							Graphics hp = homePanel.getGraphics();	
 							Miss.paint(hp,(Y*20),(X*20));
 							outText.setText("Agent Has Missed. Player's Turn");
 							this.playerTurn();
@@ -1068,7 +1068,7 @@ public void outputHitList()
 							System.out.println(playerHome.shot(X,Y));
 							compAtt.update(X,Y,8);
 							m.hit(X,Y);
-							Graphics hp = pG.getGraphics();	
+							Graphics hp = homePanel.getGraphics();	
 							Hit.paint(hp,(Y*20),(X*20));
 							outText.setText("Agent Has Hit One Of your ships! Agent's Turn again");
 							this.paintMap();
@@ -1272,14 +1272,7 @@ public void outputHitList()
 			
 			g.checkSunk();
 			
-			for(int i = 0; i<100000; i++)
-			{
-				for(int j = 0; j<3000; j++)
-				{
-					//waste time to see the shots happen at a slower speed
-				}
-				
-			}
+		
 			
 			
 			/*
