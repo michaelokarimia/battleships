@@ -260,7 +260,7 @@ public class Grid implements Serializable
 	*/
 		public boolean checkAirPlaced()
 	{
-		if (airPlaced == true)
+		if (isAirPlaced() == true)
 			return true;
 		
 		else return false;
@@ -271,7 +271,7 @@ public class Grid implements Serializable
 	
 	public void setAirPlacedTrue()
 	{
-		airPlaced=true;
+		setAirPlaced(true);
 	}
 	
 	/**Checks if all ships have been placed*/
@@ -521,10 +521,16 @@ public class Grid implements Serializable
 		if (battlePlaced == true)
 			Battleship="Battleship has been placed";
 		
-		if(airPlaced ==true)
+		if(isAirPlaced() ==true)
 			AircraftCarrier="Aircraft Carrier has been placed";
 		
 		return Minesweeper + "\n" + Destroyer + "\n" + Submarine + "\n" + Battleship + "\n" + AircraftCarrier;
+	}
+	public void setAirPlaced(boolean airPlaced) {
+		this.airPlaced = airPlaced;
+	}
+	public boolean isAirPlaced() {
+		return airPlaced;
 	}
 	
 

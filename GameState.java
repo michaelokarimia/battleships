@@ -32,6 +32,7 @@ public class GameState {
 	public boolean agentTurn;
 	private boolean playerShipsdeployed;
 	private boolean agentShipsDeployed;
+	private boolean isDeployedComplete;
 
 	public GameState() {
 		gameOver = false;
@@ -175,9 +176,9 @@ public class GameState {
 					MissIcon.paint(attackPanelGraphics,(j*20),(i*20));
 					compHomeGrid.update(i,j,1);
 					playerAtt.set(i,j,1);
-					agentTurn = true;
 					out="Miss!"+ playerTurn;
 					outText.setText("Miss. Agent's Turn");
+					startAgentTurn();
 				}
 			}
 	
@@ -191,7 +192,6 @@ public class GameState {
 		
 		return out;	
 	}
-
 	public void PlayerIsTheWinner() {
 		playerWins = true;
 
@@ -254,7 +254,7 @@ public class GameState {
 	}
 
 	public boolean isPlayerTurn() {
-		return playerTurn;
+		return playerTurn && !agentTurn;
 	}
 	
 
@@ -272,6 +272,28 @@ public class GameState {
 			return "Agent turn, please wait";
 		else
 			return "Error! neither player's turn";
+	}
+
+	public boolean isAgentTurn() {
+		return agentTurn && ! playerTurn;
+	}
+
+	public void deployVessel(int i, int j, int orientation) {
+		if(isBothPlayerAndAgentShipsDeployed())
+			return;
+		if(!playerShipsdeployed)
+		{
+			if(!playerHomeGrid.checkAirPlaced())
+				playerHomeGrid.addAir(i, j,orientation);
+			if(!playerHomeGrid.checkBattlePlaced())
+				playerHomeGrid.addBattle(i, j, orientation);
+			if(!playerHomeGrid.checkDestPlaced())
+				playerHomeGrid.addDest(i, j, orientation);
+			if(!playerHomeGrid.checkSubPlaced())
+				playerHomeGrid.addSub(i, j, orientation);
+			if(!playerHomeGrid.checkMinePlaced())
+				playerHomeGrid.addMine(i, j, orientation);
+		}
 	}
 	
 }
