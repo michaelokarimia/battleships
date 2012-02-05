@@ -787,7 +787,7 @@ class GUI extends JFrame
 		this.playerTurn();
 	} 
 	
-	public String shot(int i, int j)
+	public String acceptPlayerShot(int i, int j)
 	{
 		int sqr = gameState.playerAtt.getGridVal(i,j);
 		String out ="";
@@ -815,19 +815,13 @@ class GUI extends JFrame
 					this.agentTurn();
 					out="Miss!"+ gameState.playerTurn;
 					outText.setText("Miss. Agent's Turn");
-					
-				//	System.out.println("Player turn over");
 				}
 			}
-		//this.paintSunk();
+	
 		}
-		
-		
-		
 		out = out + "CompHome " +gameState.compHomeGrid.toString();
 		out = out + "player Attack = \n" + gameState.playerAtt.toString();
-		
-	//	System.out.println("subk status is " agentMineSunk|| agentDestSunk || agentSubSunk || agentBattleSunk || agentAirSunk);
+	
 		return out;	
 	}
 	
@@ -1201,7 +1195,7 @@ class AttackMousePressListener extends MouseAdapter
 					int gridi= resolveAxisCoOrdinate(y);
 				
 					
-	                 System.out.println(gui.shot(gridi,gridj));
+	                 System.out.println(gui.acceptPlayerShot(gridi,gridj));
 	                 gui.gameState.setShipSunkStates();
 								                               
 					
@@ -1210,13 +1204,6 @@ class AttackMousePressListener extends MouseAdapter
 					
 				}
 			}
-			/*
-			public void mouseRelased(MouseEvent event){}
-			public void mouseClicked(MouseEvent event) {}
-			public void mouseEntered(MouseEvent event){}
-			public void mouseExit(MouseEvent event){}
-			*/
-
 
 			private int resolveAxisCoOrdinate(int x) {
 				if (x < 20)

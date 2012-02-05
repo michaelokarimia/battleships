@@ -114,7 +114,7 @@ public class GameState {
 
 	public void updatePlayerClick(int gridj, int gridi, GUI gui) {
 		if (playerTurn && !isGameOver && deployed) {
-			System.out.println(gui.shot(gridi, gridj));
+			System.out.println(gui.acceptPlayerShot(gridi, gridj));
 			setShipSunkStates();
 		}
 	}
