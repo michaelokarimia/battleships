@@ -22,13 +22,10 @@ class GUI extends JFrame
 		
 		GameState gameState;
 		
-		private boolean playerWins;
 		private boolean agentWins;
 		
-		private boolean playerTurn;
-		private boolean agentTurn;
-		
-		private boolean deployed;
+	
+	
 		
 		private boolean playerDeployment;
 		private boolean agentDeployment;
@@ -63,8 +60,8 @@ class GUI extends JFrame
 		contentPane.setLayout(new BorderLayout(2,1));
 		this.setResizable(false);
 		
-		playerTurn = false;
-		deployed = false;
+		
+		
 		
 		playerDeployment = false;
 		agentDeployment = false;
@@ -86,7 +83,7 @@ class GUI extends JFrame
 		paintAirSunk= false;
 	
 		gameState = paramGameState;
-		playerWins = false;
+		
 		
 		
 		//attack panel
@@ -344,13 +341,12 @@ class GUI extends JFrame
 		 j = 0;
 		
 		 gameState = new GameState();
-		 playerWins= false;
+	
 		 agentWins= false;
 		
-		 playerTurn= false;
-		 agentTurn= false;
+		 
 		
-		 deployed= false;
+		 
 		
 		 playerDeployment= false;
 		 agentDeployment= false;
@@ -370,8 +366,7 @@ class GUI extends JFrame
 		 		
 		 playerMineSunk= false;
 		 			 		
-		playerTurn = false;
-		deployed = false;
+		
 		
 		playerDeployment = false;
 		agentDeployment = false;
@@ -385,7 +380,7 @@ class GUI extends JFrame
 		setHoriz(true);
 		showMap= true;
 		
-		playerWins = false;
+		
 		
 		Grid compHome = new Grid(10,10);
 		Grid compAtt = new Grid(10,10);
@@ -679,9 +674,9 @@ class GUI extends JFrame
 	public boolean rotate()
 	{
 		setHoriz(!isShipRotatedHorizonally());
-		if(isShipRotatedHorizonally()&&!deployed)
+		if(isShipRotatedHorizonally()&&!gameState.isDeployed())
 		outText.setText("Ship Will Be Placed Horizontally");
-		if(!isShipRotatedHorizonally()&&!deployed)
+		if(!isShipRotatedHorizonally()&&!gameState.isDeployed())
 		outText.setText("Ship Will Be Placed Vertically");
 		return isShipRotatedHorizonally();
 	}
@@ -714,7 +709,7 @@ class GUI extends JFrame
     public String deploy(int i, int j)
 	{
 		String out1= "";
-		deployed=false;
+		
 		out1=this.placeAir(i,j);
 		out1= out1 + "\n" +this.placeBattle(i,j);
 		out1= out1 + "\n" +this.placeDest(i,j);
@@ -725,7 +720,7 @@ class GUI extends JFrame
 			//this.deployed();
 	//	}
 			//this.playerTurn();	
-	out1=out1 + playerTurn;	/*playerHome.allShipsPlaced()*/;
+	out1=out1 + gameState.playerTurn;	/*playerHome.allShipsPlaced()*/;
 	
 	
 		return out1;
@@ -733,26 +728,14 @@ class GUI extends JFrame
 
 	
 	
-	public boolean getPlayerWins()
-	{
-		return playerWins;
-	}
+
 	
-	public boolean getAgentWins()
-	{
-		return playerWins;
-	}
+
 	
 	public void setAgentWins()
 	{
 		agentWins= true;
-		playerWins= false;
-	}
-	
-	public void setPlayerWins()
-	{
-		agentWins= false;
-		playerWins= true;
+		
 	}
 	
 	public boolean getGameOver()
@@ -760,36 +743,33 @@ class GUI extends JFrame
 		return gameState.IsGameOver();
 	}
 
-	public boolean deployed()
-	{
-		return deployed;
-	}
+	
 	
 
 	
 	public void playerTurn()
 	{
-		agentTurn=false;
-		if(deployed == true)
+		gameState.agentTurn=false;
+		if(gameState.isDeployed())
 		{
-			playerTurn= true;
+			gameState.playerTurn= true;
 		}
 		else
-		playerTurn=false;
+		gameState.playerTurn=false;
 		outText.setText("Player Turn, Fire A Shot!");
 	}
 	
 	public void agentTurn()
 	{
-		playerTurn= false;
-		agentTurn=true;
+		gameState.playerTurn= false;
+		gameState.agentTurn=true;
 		outText.setText("Agent Turn, please wait");
 	
 	}
 	
 	public boolean getPlayerTurn()
 	{
-			return playerTurn;
+			return gameState.playerTurn;
 	}
 	
 	/*
@@ -801,7 +781,7 @@ class GUI extends JFrame
 	public void endDeployment()
 	{
 		if(minePlaced && destPlaced && subPlaced &&	battlePlaced &&	airPlaced)
-		deployed= true;
+		gameState.SetAllShipsDeployed();
 		outText.setText("All Ships Deployed, Player's Turn! Click on the left grid to fire shots");
 		this.playerTurn();
 	} 
@@ -810,7 +790,7 @@ class GUI extends JFrame
 	{
 		int sqr = gameState.playerAtt.getGridVal(i,j);
 		String out ="";
-		if(playerTurn && deployed)
+		if(gameState.playerTurn && gameState.isDeployed())
 		{
 			if (sqr ==0)
 			{
@@ -832,7 +812,7 @@ class GUI extends JFrame
 					gameState.compHomeGrid.update(i,j,1);
 					gameState.playerAtt.set(i,j,1);
 					this.agentTurn();
-					out="Miss!"+ playerTurn;
+					out="Miss!"+ gameState.playerTurn;
 					outText.setText("Miss. Agent's Turn");
 					
 				//	System.out.println("Player turn over");
@@ -927,7 +907,7 @@ class GUI extends JFrame
 	public void agentShot(int X, int Y)
 		
 	{
-		if(agentTurn && deployed)
+		if(gameState.agentTurn && gameState.isDeployed())
 		{
 		int sqrVal = gameState.playerHomeGrid.getGridVal(X,Y);
 						
@@ -983,13 +963,13 @@ class GUI extends JFrame
 
 		
 	System.out.println("PlayerTurn " + gui.getPlayerTurn());
-	System.out.println("Deployed " + gui.deployed());
+	System.out.println("Deployed " + gui.gameState.isDeployed());
 	
 	System.out.println("PlayerTurn " + gui.getPlayerTurn());	
-	System.out.println("Deployed " + gui.deployed());
+	System.out.println("Deployed " + gui.gameState.isDeployed());
 		
 	
-	while(!gui.deployed())
+	while(!gui.gameState.isDeployed())
 	{
 		//Systems.out.println()
 		//wait
@@ -1009,7 +989,7 @@ class GUI extends JFrame
 		gui.playerTurn();
 	//=====================Game logic=======================================
 		
-		while (!gui.getGameOver() && gui.deployed())
+		while (!gui.getGameOver() && gui.gameState.isDeployed())
 		{
 			
 			while (gui.getPlayerTurn())
@@ -1019,7 +999,7 @@ class GUI extends JFrame
 			{
 				System.out.println("All sunk");
 				gameState.SetGameOver();
-				gui.setPlayerWins();
+				gameState.PlayerIsTheWinner();
 				gui.agentTurn();
 			}
 			/*
@@ -1037,7 +1017,7 @@ class GUI extends JFrame
 			gui.repaint();
 	//		System.out.println("AgentTurnNoWNOWNOWNOWNOW!!");
 			
-			while(!gui.getPlayerTurn() &&!gui.getGameOver()&&gui.deployed())
+			while(!gui.getPlayerTurn() &&!gui.getGameOver()&&gui.gameState.isDeployed())
 			{
 			
 			System.out.println("agent turn");
@@ -1155,7 +1135,7 @@ class GUI extends JFrame
 		}
 		
 		System.out.println("Game Over!");
-		if(gui.getPlayerWins())
+		if(gameState.isPlayerWinner())
 		{
 			System.out.println("Player Wins");
 			gui.setOut("Game Over! You Win!");
@@ -1264,11 +1244,7 @@ class AttackMousePressListener extends MouseAdapter
 					gridi=9;
 
 				
-				if(gui.getPlayerTurn()&&!gui.getGameOver()&&gui.deployed())
-				{
-					System.out.println(gui.shot(gridi,gridj));
-					gui.gameState.setShipSunkStates();
-				}
+				gui.gameState.updatePlayerClick(gridj, gridi, gui);
 				
 				System.out.println("Element corresponds to " + gridi + gridj);
 				
@@ -1280,6 +1256,9 @@ class AttackMousePressListener extends MouseAdapter
 			public void mouseEntered(MouseEvent event){}
 			public void mouseExit(MouseEvent event){}
 			*/
+
+
+			
 }
 
 class HomeMousePressListener extends MouseAdapter
@@ -1352,7 +1331,7 @@ class HomeMousePressListener extends MouseAdapter
 
 				
 				//Hit.paint(g,(gridj*20),(gridi*20));
-				if(!gui.deployed())
+				if(!gui.gameState.isDeployed())
 				{
 					System.out.println(gui.deploy(gridi,gridj));
 				}
