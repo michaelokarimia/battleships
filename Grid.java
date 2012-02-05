@@ -97,7 +97,7 @@ public class Grid implements Serializable
 	public boolean allShipsSunk()
 	{
 		
-		if((minesweeper.checkSunk()&& submarine.checkSunk()&& destroyer.checkSunk()&& battleship.checkSunk()&& aircraftCarrier.checkSunk() ))
+		if((minesweeper.isSunk()&& submarine.isSunk()&& destroyer.isSunk()&& battleship.isSunk()&& aircraftCarrier.isSunk() ))
 			allShipsSunk = true;
 		
 		return allShipsSunk;
@@ -106,31 +106,31 @@ public class Grid implements Serializable
 	public boolean checkMineSunk()
 	{
 		
-		return minesweeper.checkSunk();		
+		return minesweeper.isSunk();		
 	}
 	
 	public boolean checkSubSunk()
 	{
-		return submarine.checkSunk();
+		return submarine.isSunk();
 	}
 	
 	public boolean checkDestSunk()
 	{
 		
-		return destroyer.checkSunk();
+		return destroyer.isSunk();
 	}
 	
 	public boolean checkBattleSunk()
 	{
 		
-		return battleship.checkSunk();
+		return battleship.isSunk();
 	}
 	
 	public boolean checkAirSunk()
 	{		
 		//System.out.print(this.aircraftCarrier.toString()); 
 
-		return aircraftCarrier.checkSunk();
+		return aircraftCarrier.isSunk();
 	}
 	
 	
@@ -372,10 +372,10 @@ public class Grid implements Serializable
 			
 		case 2: minesweeper.scoreHit();
 			
-				if (minesweeper.checkSunk()== true)
+				if (minesweeper.isSunk()== true)
 					output =("Shot at " + i + "," +j + " HIT & SUNK Minesweeper" + " value of square is " + sqr);
 								
-				else if(minesweeper.checkSunk()== false)
+				else if(minesweeper.isSunk()== false)
 				output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
 					this.update(i,j,(sqr - 8)); 
 					hit= true;
@@ -384,10 +384,10 @@ public class Grid implements Serializable
 			
 		case 3: submarine.scoreHit(); 
 		
-				if (submarine.checkSunk()== true)
+				if (submarine.isSunk()== true)
 					output =("Shot at " + i + "," +j + " HIT & SUNK Submarine" + " value of square is " + sqr);
 			
-				else if(submarine.checkSunk()== false)
+				else if(submarine.isSunk()== false)
 					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
 					this.update(i,j,(sqr - 8)); 
 					hit= true;
@@ -395,10 +395,10 @@ public class Grid implements Serializable
 		
 		case 4: battleship.scoreHit(); 
 		
-				if (battleship.checkSunk()== true)
+				if (battleship.isSunk()== true)
 					output =("Shot at " + i + "," +j + " HIT & SUNK Battleship" + " value of square is " + sqr);
 			
-				else if(battleship.checkSunk()== false)
+				else if(battleship.isSunk()== false)
 					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
 					this.update(i,j,(sqr - 8)); 
 					hit= true;
@@ -407,10 +407,10 @@ public class Grid implements Serializable
 		
 		case 5: aircraftCarrier.scoreHit(); 
 		
-				if (aircraftCarrier.checkSunk()== true)
+				if (aircraftCarrier.isSunk()== true)
 					output =("Shot at " + i + "," +j + " HIT & SUNK Aircraft Carrier" + " value of square is " + sqr);
 			
-				else if(aircraftCarrier.checkSunk()== false)
+				else if(aircraftCarrier.isSunk()== false)
 					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
 					this.update(i,j,(sqr - 8)); 
 					hit= true;
@@ -420,10 +420,10 @@ public class Grid implements Serializable
 		
 		case 7: destroyer.scoreHit(); 
 		
-				if (destroyer.checkSunk()== true)
+				if (destroyer.isSunk()== true)
 					output =("Shot at " + i + "," +j + " HIT & SUNK destroyer" + " value of square is " + sqr);
 			
-				else if(destroyer.checkSunk()== false)
+				else if(destroyer.isSunk()== false)
 					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
 					this.update(i,j,(sqr - 8)); 
 					hit= true;
@@ -475,20 +475,20 @@ public class Grid implements Serializable
 		String BATTLESHIP =("Battleship is intact");
 		String AIRCRAFTCARRIER =("Aircraft Carrier is intact");
 			
-		if (minesweeper.checkSunk() == true)
+		if (minesweeper.isSunk() == true)
 			 MINESWEEPER =("Minesweeper is SUNK");
 		
-		if (submarine.checkSunk() == true)
+		if (submarine.isSunk() == true)
 			 SUBMARINE =("Submarine is SUNK");
 		
-		if (destroyer.checkSunk() == true)
+		if (destroyer.isSunk() == true)
 			 DESTROYER =("Destroyer is SUNK");
 		
 		
-		if (battleship.checkSunk() == true)
+		if (battleship.isSunk() == true)
 			 BATTLESHIP =("Battleship is SUNK");
 		
-		if (aircraftCarrier.checkSunk() == true)
+		if (aircraftCarrier.isSunk() == true)
 			 AIRCRAFTCARRIER =("Aircraft Carrier is SUNK");
 
 		

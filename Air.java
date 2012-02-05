@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Air extends Ship implements Serializable
 {
 	
-		private int segments = 5;	
+		private int remainingIntactCells = 5;	
 
 		/**
 		Fills 5 sequencial elements in the two dimensional array in either the same row or column with the a value.
@@ -125,12 +125,9 @@ public class Air extends Ship implements Serializable
 		
 		@returns a boolean true if it is sunk and false if it is not sunk
 	*/
-	public boolean checkSunk()
+	public boolean isSunk()
 	{
-		if (segments == 0)
-			return true;
-		else
-			return false;
+		return (remainingIntactCells == 0);
 	}
 	
 	
@@ -141,9 +138,9 @@ public class Air extends Ship implements Serializable
 	*/
 	public void scoreHit()
 	{
-		segments = segments -1;
+		remainingIntactCells = remainingIntactCells -1;
 		
-		if (segments < 0 )
+		if (remainingIntactCells < 0 )
 			throw new IllegalArgumentException("Segments var is less than 0"); 		
 			
 	}

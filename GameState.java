@@ -15,8 +15,8 @@ public class GameState {
 	private boolean allPlayerShipsSunk;
 	boolean playerSubSunk;
 	boolean playerDestSunk;
-	boolean agentBattleSunk;
-	boolean agentAirSunk;
+	private boolean agentBattleSunk;
+	private boolean agentAirSunk;
 	private Grid compHomeGrid;
 	public Grid compAtt;
 	public Grid playerAtt;
@@ -30,7 +30,8 @@ public class GameState {
 
 	public boolean playerTurn;
 	public boolean agentTurn;
-	private boolean deployed;
+	private boolean playerShipsdeployed;
+	private boolean agentShipsDeployed;
 
 	public GameState() {
 		gameOver = false;
@@ -39,8 +40,8 @@ public class GameState {
 		allAgentShipsSunk = false;
 		allPlayerShipsSunk = false;
 		playerSubSunk = false;
-		agentAirSunk = false;
-		agentBattleSunk = false;
+		setAgentAirSunk(false);
+		setAgentBattleSunk(false);
 		playerHomeGrid = new Grid(WidthOfGrid, HeightOfGrid);
 		compHomeGrid = new Grid(WidthOfGrid, HeightOfGrid);
 		compAtt = new Grid(WidthOfGrid, HeightOfGrid);
@@ -48,7 +49,7 @@ public class GameState {
 		influenceMap = new InfluenceMap();
 		playerTurn = true;
 		agentTurn = false;
-		deployed = false;
+		playerShipsdeployed = false;
 
 	}
 
@@ -109,10 +110,10 @@ public class GameState {
 			playerMineSunk = true;
 		}
 		if (compHomeGrid.checkAirSunk()) {
-			agentAirSunk = true;
+			setAgentAirSunk(true);
 		}
 		if (compHomeGrid.checkBattleSunk()) {
-			agentBattleSunk = true;
+			setAgentBattleSunk(true);
 		}
 		if (compHomeGrid.checkDestSunk()) {
 			agentDestSunk = true;
@@ -125,7 +126,7 @@ public class GameState {
 
 		}
 
-		if (agentAirSunk && agentBattleSunk && agentDestSunk && agentSubSunk
+		if (isAgentAirSunk() && isAgentBattleSunk() && agentDestSunk && agentSubSunk
 				&& agentMineSunk)
 			allAgentShipsSunk = true;
 
@@ -144,7 +145,7 @@ public class GameState {
 	}
 
 	public void updatePlayerClick(int gridj, int gridi, Graphics attackPanelGraphics) {
-		if (playerTurn && !isGameOver && deployed) {
+		if (playerTurn && !isGameOver && playerShipsdeployed) {
 			//System.out.println(acceptPlayerShot(gridi, gridj, attackPanelGraphics));
 			setShipSunkStates();
 		}
@@ -200,22 +201,22 @@ public class GameState {
 		return playerWins;
 	}
 
-	public boolean isDeployed() {
-		return deployed;
+	public boolean isBothPlayerAndAgentShipsDeployed() {
+		return playerShipsdeployed && agentShipsDeployed;
 	}
 
 	public void SetAllShipsDeployed() {
-		deployed = true;
+		playerShipsdeployed = true;
 
 	}
 
 	public boolean IsAcceptingPlayerInput() {
-		return playerTurn && !gameOver && deployed;
+		return playerTurn && !gameOver && playerShipsdeployed;
 	}
 
 	public void addAgentShips(Grid gridWithAgentShipsPlaced) {
 		compHomeGrid = gridWithAgentShipsPlaced;
-		
+		agentShipsDeployed = compHomeGrid.allShipsPlaced();
 	}
 
 	public boolean isCompHomegridRefIsminus3(int i, int j) {
@@ -228,5 +229,21 @@ public class GameState {
 
 	public boolean isCompHomeGridLessThanMinus1(int i,int j) {
 		return compHomeGrid.getGridVal(i,j) < -1;
+	}
+
+	public void setAgentAirSunk(boolean agentAirSunk) {
+		this.agentAirSunk = agentAirSunk;
+	}
+
+	public boolean isAgentAirSunk() {
+		return agentAirSunk;
+	}
+
+	public void setAgentBattleSunk(boolean agentBattleSunk) {
+		this.agentBattleSunk = agentBattleSunk;
+	}
+
+	public boolean isAgentBattleSunk() {
+		return agentBattleSunk;
 	}
 }

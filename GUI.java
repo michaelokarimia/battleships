@@ -27,8 +27,6 @@ class GUI extends JFrame
 	
 	
 		
-		private boolean playerDeployment;
-		private boolean agentDeployment;
 		
 		private boolean horiz;
 		private boolean showMap;
@@ -63,8 +61,7 @@ class GUI extends JFrame
 		
 		
 		
-		playerDeployment = false;
-		agentDeployment = false;
+
 		
 		minePlaced = false;
 		destPlaced = false;
@@ -336,10 +333,7 @@ class GUI extends JFrame
 		 
 		
 		 
-		
-		 playerDeployment= false;
-		 agentDeployment= false;
-		
+
 		 setHoriz(false);
 		 showMap= false;
 		
@@ -355,11 +349,6 @@ class GUI extends JFrame
 		 		
 		 playerMineSunk= false;
 		 			 		
-		
-		
-		playerDeployment = false;
-		agentDeployment = false;
-		
 		minePlaced = false;
 		destPlaced = false;
 		subPlaced = false;
@@ -663,9 +652,9 @@ class GUI extends JFrame
 	public boolean rotate()
 	{
 		setHoriz(!isShipRotatedHorizonally());
-		if(isShipRotatedHorizonally()&&!gameState.isDeployed())
+		if(isShipRotatedHorizonally()&&!gameState.isBothPlayerAndAgentShipsDeployed())
 		getOutText().setText("Ship Will Be Placed Horizontally");
-		if(!isShipRotatedHorizonally()&&!gameState.isDeployed())
+		if(!isShipRotatedHorizonally()&&!gameState.isBothPlayerAndAgentShipsDeployed())
 		getOutText().setText("Ship Will Be Placed Vertically");
 		return isShipRotatedHorizonally();
 	}
@@ -739,7 +728,7 @@ class GUI extends JFrame
 	public void playerTurn()
 	{
 		gameState.agentTurn=false;
-		if(gameState.isDeployed())
+		if(gameState.isBothPlayerAndAgentShipsDeployed())
 		{
 			gameState.playerTurn= true;
 			getOutText().setText("Player Turn, Fire A Shot!");
@@ -807,13 +796,13 @@ class GUI extends JFrame
 		{
 			for (int j = 0; j < 10; j++)
 			{
-				if(gameState.isCompHomegridRefIsminus3(i,j) && gameState.agentAirSunk)
+				if(gameState.isCompHomegridRefIsminus3(i,j) && gameState.isAgentAirSunk())
 				{					
 					Graphics attackPanelGraphics = attackPanel.getGraphics();	
 					Sunk.paint(attackPanelGraphics,(j*20),(i*20));
 				}
 				
-				if(gameState.isCompHomeGridRefMinus4(i,j) && gameState.agentBattleSunk)
+				if(gameState.isCompHomeGridRefMinus4(i,j) && gameState.isAgentBattleSunk())
 				{					
 					Graphics ap = attackPanel.getGraphics();	
 					Sunk.paint(ap,(j*20),(i*20));
@@ -831,7 +820,7 @@ class GUI extends JFrame
 	public void agentShot(int X, int Y)
 		
 	{
-		if(gameState.agentTurn && gameState.isDeployed())
+		if(gameState.agentTurn && gameState.isBothPlayerAndAgentShipsDeployed())
 		{
 		int sqrVal = gameState.playerHomeGrid.getGridVal(X,Y);
 						
@@ -881,51 +870,46 @@ class GUI extends JFrame
 	
 	public static void main (String args[])
 	{
-		GameState gameState = new GameState();
-		GUI gui = new GUI(gameState);
+	
+		GUI gui = new GUI(new GameState());
 		Agent smith = new Agent();
 
 		
-	System.out.println("PlayerTurn " + gui.getPlayerTurn());
-	System.out.println("Deployed " + gui.gameState.isDeployed());
-	
-	System.out.println("PlayerTurn " + gui.getPlayerTurn());	
-	System.out.println("Deployed " + gui.gameState.isDeployed());
+		System.out.println("PlayerTurn " + gui.getPlayerTurn());
+		System.out.println("Deployed " + gui.gameState.isBothPlayerAndAgentShipsDeployed());
 		
+		System.out.println("PlayerTurn " + gui.getPlayerTurn());	
+		System.out.println("Deployed " + gui.gameState.isBothPlayerAndAgentShipsDeployed());
+			
 	
-	while(!gui.gameState.isDeployed())
-	{
-		//Systems.out.println()
-		//wait
+	
+	
+	
+		while(!gui.gameState.playerHomeGrid.allShipsPlaced())
+		{
+				System.out.println("place your ships now");	
+		}
 		
-	}
-	
-	gameState.addAgentShips(smith.placeShips());
-	/*
-	compHome.addAir(0,0,0);
-	compHome.addBattle(1,0,0);
-	compHome.addDest(2,0,0);
-	compHome.addSub(3,0,0);
-	compHome.addDest(4,0,0);
-	compHome.addMine(5,0,0);*/
-			//g.paintMap();
+		gui.gameState.addAgentShips(smith.placeShips());
+		
+		
 
 		gui.playerTurn();
-	//=====================Game logic=======================================
+
 		
-		while (!gui.getGameOver() && gui.gameState.isDeployed())
+		while (!gui.getGameOver() && gui.gameState.isBothPlayerAndAgentShipsDeployed())
 		{
 			
 			while (gui.getPlayerTurn())
 			{
 				gui.gameState.setShipSunkStates();
-			if(gui.gameState.areAllAgentShipsSunk())
-			{
-				System.out.println("All sunk");
-				gameState.SetGameOver();
-				gameState.PlayerIsTheWinner();
-				gui.agentTurn();
-			}
+				if(gui.gameState.areAllAgentShipsSunk())
+				{
+					System.out.println("All sunk");
+					gui.gameState.SetGameOver();
+					gui.gameState.PlayerIsTheWinner();
+					gui.agentTurn();
+				}
 			/*
 			if(g.getPlayerShipsSunk())
 			{
@@ -941,26 +925,26 @@ class GUI extends JFrame
 			gui.repaint();
 	//		System.out.println("AgentTurnNoWNOWNOWNOWNOW!!");
 			
-			while(!gui.getPlayerTurn() &&!gui.getGameOver()&&gui.gameState.isDeployed())
+			while(!gui.getPlayerTurn() &&!gui.getGameOver()&&gui.gameState.isBothPlayerAndAgentShipsDeployed())
 			{
 			
 			System.out.println("agent turn");
-			smith.nextShot(gameState.influenceMap,gameState.compAtt);
+			smith.nextShot(gui.gameState.influenceMap, gui.gameState.compAtt);
 			gui.agentShot(smith.getI(),smith.getJ());
 			System.out.println("shot at " + smith.getI() + " " +smith.getJ());
-			System.out.println(gameState.compAtt.toString());
+			System.out.println(gui.gameState.compAtt.toString());
 			//if(gameState.playerHome.get(i,j
 			
 			
 			
-			System.out.println("Player Home board \n" +gameState.playerHomeGrid.toString());
-			if(gameState.playerHomeGrid.checkMineSunk()&& !gui.getPaintMineSunk())
+			System.out.println("Player Home board \n" +gui.gameState.playerHomeGrid.toString());
+			if(gui.gameState.playerHomeGrid.checkMineSunk()&& !gui.getPaintMineSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(gameState.playerHomeGrid.getGridVal(i,j) ==-6)
+							if(gui.gameState.playerHomeGrid.getGridVal(i,j) ==-6)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintMineSunk();
@@ -969,13 +953,13 @@ class GUI extends JFrame
 					}
 			}
 			
-			if(gameState.playerHomeGrid.checkDestSunk() && !gui.getPaintDestSunk())
+			if(gui.gameState.playerHomeGrid.checkDestSunk() && !gui.getPaintDestSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(gameState.playerHomeGrid.getGridVal(i,j) ==-1)
+							if(gui.gameState.playerHomeGrid.getGridVal(i,j) ==-1)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintDestSunk();
@@ -984,13 +968,13 @@ class GUI extends JFrame
 					}
 			}
 			
-			if(gameState.playerHomeGrid.checkSubSunk() && !gui.getPaintSubSunk())
+			if(gui.gameState.playerHomeGrid.checkSubSunk() && !gui.getPaintSubSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(gameState.playerHomeGrid.getGridVal(i,j) ==-5)
+							if(gui.gameState.playerHomeGrid.getGridVal(i,j) ==-5)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintSubSunk();
@@ -999,13 +983,13 @@ class GUI extends JFrame
 					}
 			}
 			
-			if(gameState.playerHomeGrid.checkBattleSunk() && !gui.getPaintBattleSunk())
+			if(gui.gameState.playerHomeGrid.checkBattleSunk() && !gui.getPaintBattleSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(gameState.playerHomeGrid.getGridVal(i,j) ==-4)
+							if(gui.gameState.playerHomeGrid.getGridVal(i,j) ==-4)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintBattleSunk();
@@ -1014,13 +998,13 @@ class GUI extends JFrame
 					}
 			}
 			
-			if(gameState.playerHomeGrid.checkAirSunk() && !gui.getPaintAirSunk())
+			if(gui.gameState.playerHomeGrid.checkAirSunk() && !gui.getPaintAirSunk())
 			{
 					for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 					{
 						for (int j = 0; j < 10; j++)//change this to CoLumns for default
 						{
-							if(gameState.playerHomeGrid.getGridVal(i,j) ==-3)
+							if(gui.gameState.playerHomeGrid.getGridVal(i,j) ==-3)
 							{
 								smith.setSunk(i,j);
 								gui.setPaintAirSunk();
@@ -1049,7 +1033,7 @@ class GUI extends JFrame
 			if(gui.gameState.getPlayerShipsSunk())
 			{
 				gui.setAgentWins();
-				gameState.SetGameOver();
+				gui.gameState.SetGameOver();
 				gui.playerTurn();
 				
 			}			
@@ -1059,7 +1043,7 @@ class GUI extends JFrame
 		}
 		
 		System.out.println("Game Over!");
-		if(gameState.isPlayerWinner())
+		if(gui.gameState.isPlayerWinner())
 		{
 			System.out.println("Player Wins");
 			gui.setOut("Game Over! You Win!");
@@ -1245,7 +1229,7 @@ class HomeMousePressListener extends MouseAdapter
 
 				
 				//Hit.paint(g,(gridj*20),(gridi*20));
-				if(!gui.gameState.isDeployed())
+				if(!gui.gameState.isBothPlayerAndAgentShipsDeployed())
 				{
 					System.out.println(gui.deploy(gridi,gridj));
 				}

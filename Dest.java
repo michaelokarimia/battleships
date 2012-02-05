@@ -135,7 +135,7 @@ public class Dest extends Ship implements Serializable
 		
 		@returns a boolean true if it is sunk and false if it is not sunk
 	*/
-	public boolean checkSunk()
+	public boolean isSunk()
 	{
 		if (segments == 0)
 			return true;
