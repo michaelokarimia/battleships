@@ -246,4 +246,32 @@ public class GameState {
 	public boolean isAgentBattleSunk() {
 		return agentBattleSunk;
 	}
+
+	public void startAgentTurn() {
+		agentTurn = true;
+		playerTurn = false;
+		
+	}
+
+	public boolean isPlayerTurn() {
+		return playerTurn;
+	}
+	
+
+	public void setPlayerTurn()
+	{
+			playerTurn= true;
+			agentTurn = false;	
+	}
+
+	public String turnToString() {
+	
+		if(playerTurn)
+			return "Player turn, take a shot";
+		else if(agentTurn)
+			return "Agent turn, please wait";
+		else
+			return "Error! neither player's turn";
+	}
+	
 }
