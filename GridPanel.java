@@ -17,30 +17,30 @@ public class GridPanel extends JPanel
 		super.paintComponent(g);
 		// ship objects hold their starting co-ord and orientation
 		
-		Miss.paint(g,0,0);
-		Miss.paint(g,0,20);
-		Miss.paint(g,0,40);
-		Miss.paint(g,0,60);
-		Miss.paint(g,0,80);
-		Miss.paint(g,0,100);
-		Miss.paint(g,0,120);
-		Miss.paint(g,0,140);
-		Miss.paint(g,0,160);
-		Miss.paint(g,0,180);
-		Miss.paint(g,0,200);
+		MissIcon.paint(g,0,0);
+		MissIcon.paint(g,0,20);
+		MissIcon.paint(g,0,40);
+		MissIcon.paint(g,0,60);
+		MissIcon.paint(g,0,80);
+		MissIcon.paint(g,0,100);
+		MissIcon.paint(g,0,120);
+		MissIcon.paint(g,0,140);
+		MissIcon.paint(g,0,160);
+		MissIcon.paint(g,0,180);
+		MissIcon.paint(g,0,200);
 		AircraftCarrier.paint(g,100,0);
 		AircraftCarrierH.paint(g,0,100);
-		Hit.paint(g,0,100);
-		Hit.paint(g,20,100);
-		Hit.paint(g,40,100);
-		Hit.paint(g,60,100);
-		Hit.paint(g,80,100);
-		Hit.paint(g,100,100);
-		Hit.paint(g,120,100);
-		Hit.paint(g,140,100);
-		Hit.paint(g,160,100);
-		Hit.paint(g,180,100);
-		Hit.paint(g,200,100);
+		HitIcon.paint(g,0,100);
+		HitIcon.paint(g,20,100);
+		HitIcon.paint(g,40,100);
+		HitIcon.paint(g,60,100);
+		HitIcon.paint(g,80,100);
+		HitIcon.paint(g,100,100);
+		HitIcon.paint(g,120,100);
+		HitIcon.paint(g,140,100);
+		HitIcon.paint(g,160,100);
+		HitIcon.paint(g,180,100);
+		HitIcon.paint(g,200,100);
 	}
 
 }

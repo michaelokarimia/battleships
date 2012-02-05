@@ -4,7 +4,7 @@ Instructions to draw a splash, signifing a missed shot on the screen.
 	
 import java.awt.*;
 
-public class Miss// extends Graphics2D
+public class MissIcon
 {
 	/**
 		Constructs a splash shape with a given top left corner.
