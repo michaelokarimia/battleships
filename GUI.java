@@ -791,8 +791,7 @@ class GUI extends JFrame
 	{
 		int sqr = gameState.playerAtt.getGridVal(i,j);
 		String out ="";
-		if(gameState.playerTurn && gameState.isDeployed())
-		{
+
 			if (sqr ==0)
 			{
 				boolean hit = false;
@@ -818,10 +817,14 @@ class GUI extends JFrame
 				}
 			}
 	
-		}
+		
+		
+		gameState.setShipSunkStates();
+		
 		out = out + "CompHome " +gameState.compHomeGrid.toString();
 		out = out + "player Attack = \n" + gameState.playerAtt.toString();
 	
+		
 		return out;	
 	}
 	
@@ -1196,7 +1199,7 @@ class AttackMousePressListener extends MouseAdapter
 				
 					
 	                 System.out.println(gui.acceptPlayerShot(gridi,gridj));
-	                 gui.gameState.setShipSunkStates();
+	                 
 								                               
 					
 					System.out.println("Element corresponds to " + gridi + gridj);
