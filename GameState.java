@@ -1,3 +1,8 @@
+import java.awt.Graphics;
+
+import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
+
 public class GameState {
 
 	private static final int WidthOfGrid = 10;
@@ -12,7 +17,7 @@ public class GameState {
 	boolean playerDestSunk;
 	boolean agentBattleSunk;
 	boolean agentAirSunk;
-	public Grid compHomeGrid;
+	private Grid compHomeGrid;
 	public Grid compAtt;
 	public Grid playerAtt;
 	public InfluenceMap influenceMap;
@@ -47,6 +52,32 @@ public class GameState {
 
 	}
 
+	public void outputHitList(JTextComponent displayTextbox)
+	{
+		
+			if(compHomeGrid.checkAirSunk())
+			{
+				displayTextbox.setText("You Have sunk the Agent's Aircraft Carrier");
+			}
+			if(compHomeGrid.checkBattleSunk())
+			{
+				displayTextbox.setText(displayTextbox.getText() +("You Have sunk the Agent's Battleship"));
+			}
+			if(compHomeGrid.checkDestSunk())
+			{
+				displayTextbox.setText(displayTextbox.getText() +("You Have sunk the Agent's Destroyer"));
+			}
+			if(compHomeGrid.checkSubSunk())
+			{
+				displayTextbox.setText(displayTextbox.getText() +("You Have sunk the Agent's Submarine"));
+			}
+			if(compHomeGrid.checkMineSunk())
+			{
+				displayTextbox.setText(displayTextbox.getText() + ("You Have sunk the Agent's Minesweeper"));
+			}
+		
+	}
+	
 	public boolean IsGameOver() {
 		return gameOver;
 	}
@@ -112,11 +143,52 @@ public class GameState {
 		return allPlayerShipsSunk;
 	}
 
-	public void updatePlayerClick(int gridj, int gridi, GUI gui) {
+	public void updatePlayerClick(int gridj, int gridi, Graphics attackPanelGraphics) {
 		if (playerTurn && !isGameOver && deployed) {
-			System.out.println(gui.acceptPlayerShot(gridi, gridj));
+			//System.out.println(acceptPlayerShot(gridi, gridj, attackPanelGraphics));
 			setShipSunkStates();
 		}
+	}
+	
+	public String acceptPlayerShot(int i, int j, Graphics attackPanelGraphics, JTextField outText)
+	{
+		int sqr = playerAtt.getGridVal(i,j);
+		String out ="";
+
+			if (sqr ==0)
+			{
+				boolean hit = false;
+				hit = compHomeGrid.shot(i,j);
+		
+				
+		
+				if(hit)
+				{
+					HitIcon.paint(attackPanelGraphics,(j*20),(i*20));
+					playerAtt.update(i,j,9);
+					outText.setText("HIT! Have Another Turn!");
+				}
+				else
+				if(!hit)
+				{
+					MissIcon.paint(attackPanelGraphics,(j*20),(i*20));
+					compHomeGrid.update(i,j,1);
+					playerAtt.set(i,j,1);
+					agentTurn = true;
+					out="Miss!"+ playerTurn;
+					outText.setText("Miss. Agent's Turn");
+				}
+			}
+	
+		
+		
+		setShipSunkStates();
+		
+		out = out + "CompHome " +compHomeGrid.toString();
+		out = out + "player Attack = \n" + playerAtt.toString();
+	
+		
+		return out;	
 	}
 
 	public void PlayerIsTheWinner() {
@@ -139,5 +211,22 @@ public class GameState {
 
 	public boolean IsAcceptingPlayerInput() {
 		return playerTurn && !gameOver && deployed;
+	}
+
+	public void addAgentShips(Grid gridWithAgentShipsPlaced) {
+		compHomeGrid = gridWithAgentShipsPlaced;
+		
+	}
+
+	public boolean isCompHomegridRefIsminus3(int i, int j) {
+		return compHomeGrid.getGridVal(i,j) ==-3;
+	}
+
+	public boolean isCompHomeGridRefMinus4(int i, int j) {
+		return compHomeGrid.getGridVal(i,j) ==-4;
+	}
+
+	public boolean isCompHomeGridLessThanMinus1(int i,int j) {
+		return compHomeGrid.getGridVal(i,j) < -1;
 	}
 }

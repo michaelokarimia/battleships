@@ -16,7 +16,7 @@ class GUI extends JFrame
 		private HomePanel homePanel;
 		private InfluencePanel influenceMapPanel;
 		
-		private JTextField outText;
+		JTextField outText;
 		private int i;
 		private int j;
 		
@@ -236,10 +236,10 @@ class GUI extends JFrame
 		rotatePanel.add(viewMap, BorderLayout.NORTH);
 		
 		
-		outText = new JTextField("lookat me!");
-		outText.setText("Welcome To Battleships. Place ships on the middle grid");
-		outText.setEditable(false);
-		rotatePanel.add(outText);
+		setOutText(new JTextField("lookat me!"));
+		getOutText().setText("Welcome To Battleships. Place ships on the middle grid");
+		getOutText().setEditable(false);
+		rotatePanel.add(getOutText());
 		
 		contentPane.add(CenterPanel,BorderLayout.CENTER);
 		contentPane.add(southPanel,BorderLayout.SOUTH);
@@ -252,37 +252,26 @@ class GUI extends JFrame
 	
 	public void setOut(String s)
 	{
-		outText.setText(s);
+		getOutText().setText(s);
 	}
 	public void repaint()
 	{
-		Graphics g = attackPanel.getGraphics();	
+		Graphics attackPanelGraphics = attackPanel.getGraphics();	
 		
 		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
 		{
 			for (int j = 0; j < 10; j++)//change this to CoLumns for default
 			{
 				if (gameState.playerAtt.getGridVal(i,j) == 1)
-					Miss.paint(g,(j*20),(i*20));
+					MissIcon.paint(attackPanelGraphics,(j*20),(i*20));
 				else
-				if (gameState.compHomeGrid.getGridVal(i,j) < -1)
-					Hit.paint(g,(j*20),(i*20));
+				if (gameState.isCompHomeGridLessThanMinus1(i,j))
+					HitIcon.paint(attackPanelGraphics,(j*20),(i*20));
 				
 				
 			}
 		}
-		
-		/*
-		Graphics g = iM.getGraphics();	
-		
-		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
-		{
-			for (int j = 0; j < 10; j++)//change this to CoLumns for default
-			{
-				int col = 0;
-				IMap.paint(g,(j*20),(i*20), col);
-			}
-		}*/
+
 	}
 	
 	public boolean getPaintMineSunk()
@@ -423,11 +412,11 @@ class GUI extends JFrame
 					AircraftCarrierH.paint(hp,(j*20),(i*20));
 					out = out + gameState.playerHomeGrid.toString();
 					airPlaced = true;
-					outText.setText("Air Placed");
+					getOutText().setText("Air Placed");
 				}
 				else
 				{
-					outText.setText("Aircraft Carrier Will Not Fit Here");
+					getOutText().setText("Aircraft Carrier Will Not Fit Here");
 					out ="not valid";
 					out = out + gameState.playerHomeGrid.toString();
 				}	
@@ -443,7 +432,7 @@ class GUI extends JFrame
 				AircraftCarrier.paint(hp,(j*20),(i*20));
 				out = out + gameState.playerHomeGrid.toString();
 				airPlaced = true;
-				outText.setText("Air Placed");
+				getOutText().setText("Air Placed");
 			}
 			else
 			{
@@ -480,7 +469,7 @@ class GUI extends JFrame
 				{
 					out ="not valid";
 					out = out + gameState.playerHomeGrid.toString();
-					outText.setText("Battleships Will Not Fit Here");
+					getOutText().setText("Battleships Will Not Fit Here");
 				}	
 			}
 		
@@ -494,13 +483,13 @@ class GUI extends JFrame
 				Battleship.paint(hp,(j*20),(i*20));
 				out = out + gameState.playerHomeGrid.toString();
 				battlePlaced = true;
-				outText.setText("Battleship Placed");
+				getOutText().setText("Battleship Placed");
 			}
 			else
 			{
 				out ="not valid";
 				out = out + gameState.playerHomeGrid.toString();
-				outText.setText("Battleships Will Not Fit Here");
+				getOutText().setText("Battleships Will Not Fit Here");
 			}	
 		
 		}
@@ -526,13 +515,13 @@ class GUI extends JFrame
 					DestroyerH.paint(hp,(j*20),(i*20));
 					out = out + gameState.playerHomeGrid.toString();
 					destPlaced = true;
-					outText.setText("Destroyer Placed");
+					getOutText().setText("Destroyer Placed");
 				}
 				else
 				{
 					out ="not valid";
 					out = out + gameState.playerHomeGrid.toString();
-					outText.setText("Destroyer Will Not Fit Here");
+					getOutText().setText("Destroyer Will Not Fit Here");
 				}	
 			}
 		
@@ -546,7 +535,7 @@ class GUI extends JFrame
 				Destroyer.paint(hp,(j*20),(i*20));
 				out = out + gameState.playerHomeGrid.toString();
 				destPlaced = true;
-				outText.setText("Destroyer Placed");
+				getOutText().setText("Destroyer Placed");
 			}
 			else
 			{
@@ -578,13 +567,13 @@ class GUI extends JFrame
 					SubmarineH.paint(hp,(j*20),(i*20));
 					out = out + gameState.playerHomeGrid.toString();
 					subPlaced = true;
-					outText.setText("Submarine Placed");
+					getOutText().setText("Submarine Placed");
 				}
 				else
 				{
 					out ="not valid";
 					out = out + gameState.playerHomeGrid.toString();
-					outText.setText("Submarine Will Not Fit Here");
+					getOutText().setText("Submarine Will Not Fit Here");
 				}	
 			}
 		
@@ -598,13 +587,13 @@ class GUI extends JFrame
 				Submarine.paint(hp,(j*20),(i*20));
 				out = out + gameState.playerHomeGrid.toString();
 				subPlaced = true;
-				outText.setText("Submarine Placed");
+				getOutText().setText("Submarine Placed");
 			}
 			else
 			{
 				out ="not valid";
 				out = out + gameState.playerHomeGrid.toString();
-				outText.setText("Submarine Will Not Fit Here");
+				getOutText().setText("Submarine Will Not Fit Here");
 			}	
 		
 		}
@@ -631,13 +620,13 @@ class GUI extends JFrame
 					MinesweeperH.paint(hp,(j*20),(i*20));
 					out = out + gameState.playerHomeGrid.toString();
 					minePlaced = true;
-					outText.setText("Minesweeper Placed");
+					getOutText().setText("Minesweeper Placed");
 				}
 				else
 				{
 					out ="not valid";
 					out = out + gameState.playerHomeGrid.toString();
-					outText.setText("Minesweeper Will Not Fit Here");
+					getOutText().setText("Minesweeper Will Not Fit Here");
 				}	
 			}
 		
@@ -651,13 +640,13 @@ class GUI extends JFrame
 				Minesweeper.paint(hp,(j*20),(i*20));
 				out = out + gameState.playerHomeGrid.toString();
 				minePlaced = true;
-				outText.setText("Minesweeper Placed");
+				getOutText().setText("Minesweeper Placed");
 			}
 			else
 			{
 				out ="not valid";
 				out = out + gameState.playerHomeGrid.toString();
-				outText.setText("Minesweeper Will Not Fit Here");
+				getOutText().setText("Minesweeper Will Not Fit Here");
 			}	
 		
 		}
@@ -675,9 +664,9 @@ class GUI extends JFrame
 	{
 		setHoriz(!isShipRotatedHorizonally());
 		if(isShipRotatedHorizonally()&&!gameState.isDeployed())
-		outText.setText("Ship Will Be Placed Horizontally");
+		getOutText().setText("Ship Will Be Placed Horizontally");
 		if(!isShipRotatedHorizonally()&&!gameState.isDeployed())
-		outText.setText("Ship Will Be Placed Vertically");
+		getOutText().setText("Ship Will Be Placed Vertically");
 		return isShipRotatedHorizonally();
 	}
 	
@@ -685,7 +674,7 @@ class GUI extends JFrame
 	{
 		showMap= true;
 		this.paintMap();
-		outText.setText("Influence Map shown");
+		getOutText().setText("Influence Map shown");
 	}
 	
 	public void hideMap()
@@ -703,7 +692,7 @@ class GUI extends JFrame
 			}
 		}
 		
-		outText.setText("Influence Map Hidden");
+		getOutText().setText("Influence Map Hidden");
 	}	
 	
     public String deploy(int i, int j)
@@ -753,7 +742,7 @@ class GUI extends JFrame
 		if(gameState.isDeployed())
 		{
 			gameState.playerTurn= true;
-			outText.setText("Player Turn, Fire A Shot!");
+			getOutText().setText("Player Turn, Fire A Shot!");
 		}
 		else
 			{gameState.playerTurn=false;}
@@ -764,7 +753,7 @@ class GUI extends JFrame
 	{
 		gameState.playerTurn= false;
 		gameState.agentTurn=true;
-		outText.setText("Agent Turn, please wait");
+		getOutText().setText("Agent Turn, please wait");
 	
 	}
 	
@@ -783,50 +772,11 @@ class GUI extends JFrame
 	{
 		if(minePlaced && destPlaced && subPlaced &&	battlePlaced &&	airPlaced)
 		gameState.SetAllShipsDeployed();
-		outText.setText("All Ships Deployed, Player's Turn! Click on the left grid to fire shots");
+		getOutText().setText("All Ships Deployed, Player's Turn! Click on the left grid to fire shots");
 		this.playerTurn();
 	} 
 	
-	public String acceptPlayerShot(int i, int j)
-	{
-		int sqr = gameState.playerAtt.getGridVal(i,j);
-		String out ="";
-
-			if (sqr ==0)
-			{
-				boolean hit = false;
-				hit = gameState.compHomeGrid.shot(i,j);
-		
-				Graphics ap = attackPanel.getGraphics();
-		
-				if(hit)
-				{
-					Hit.paint(ap,(j*20),(i*20));
-					gameState.playerAtt.update(i,j,9);
-					outText.setText("HIT! Have Another Turn!");
-				}
-				else
-				if(!hit)
-				{
-					Miss.paint(ap,(j*20),(i*20));
-					gameState.compHomeGrid.update(i,j,1);
-					gameState.playerAtt.set(i,j,1);
-					this.agentTurn();
-					out="Miss!"+ gameState.playerTurn;
-					outText.setText("Miss. Agent's Turn");
-				}
-			}
 	
-		
-		
-		gameState.setShipSunkStates();
-		
-		out = out + "CompHome " +gameState.compHomeGrid.toString();
-		out = out + "player Attack = \n" + gameState.playerAtt.toString();
-	
-		
-		return out;	
-	}
 	
 	public void paintMap()
 	{
@@ -850,20 +800,20 @@ class GUI extends JFrame
 	}
 		
 	
-	public void paintSunk()
+	public void paintPlayerAttackGrid()
 	{
 		this.gameState.setShipSunkStates();
-		for (int i = 0; i < 10; i++) //change these to ROWS to use the default
+		for (int i = 0; i < 10; i++)
 		{
-			for (int j = 0; j < 10; j++)//change this to CoLumns for default
+			for (int j = 0; j < 10; j++)
 			{
-				if(gameState.compHomeGrid.getGridVal(i,j) ==-3 && gameState.agentAirSunk)
+				if(gameState.isCompHomegridRefIsminus3(i,j) && gameState.agentAirSunk)
 				{					
-					Graphics ap = attackPanel.getGraphics();	
-					Sunk.paint(ap,(j*20),(i*20));
+					Graphics attackPanelGraphics = attackPanel.getGraphics();	
+					Sunk.paint(attackPanelGraphics,(j*20),(i*20));
 				}
 				
-				if(gameState.compHomeGrid.getGridVal(i,j) ==-4 && gameState.agentBattleSunk)
+				if(gameState.isCompHomeGridRefMinus4(i,j) && gameState.agentBattleSunk)
 				{					
 					Graphics ap = attackPanel.getGraphics();	
 					Sunk.paint(ap,(j*20),(i*20));
@@ -874,31 +824,7 @@ class GUI extends JFrame
 		}
 	}
 	
-	public void outputHitList()
-{
 	
-		if(gameState.compHomeGrid.checkAirSunk())
-		{
-			outText.setText("You Have sunk the Agent's Aircraft Carrier");
-		}
-		if(gameState.compHomeGrid.checkBattleSunk())
-		{
-			outText.setText(outText.getText() +("You Have sunk the Agent's Battleship"));
-		}
-		if(gameState.compHomeGrid.checkDestSunk())
-		{
-			outText.setText(outText.getText() +("You Have sunk the Agent's Destroyer"));
-		}
-		if(gameState.compHomeGrid.checkSubSunk())
-		{
-			outText.setText(outText.getText() +("You Have sunk the Agent's Submarine"));
-		}
-		if(gameState.compHomeGrid.checkMineSunk())
-		{
-			outText.setText(outText.getText() + ("You Have sunk the Agent's Minesweeper"));
-		}
-	
-}
 	
 	
 	
@@ -921,8 +847,8 @@ class GUI extends JFrame
 							gameState.influenceMap.miss(X,Y);
 							this.paintMap();
 							Graphics hp = homePanel.getGraphics();	
-							Miss.paint(hp,(Y*20),(X*20));
-							outText.setText("Agent Has Missed. Player's Turn");
+							MissIcon.paint(hp,(Y*20),(X*20));
+							getOutText().setText("Agent Has Missed. Player's Turn");
 							this.playerTurn();
 						}
 						
@@ -932,8 +858,8 @@ class GUI extends JFrame
 							gameState.compAtt.update(X,Y,8);
 							gameState.influenceMap.hit(X,Y);
 							Graphics hp = homePanel.getGraphics();	
-							Hit.paint(hp,(Y*20),(X*20));
-							outText.setText("Agent Has Hit One Of your ships! Agent's Turn again");
+							HitIcon.paint(hp,(Y*20),(X*20));
+							getOutText().setText("Agent Has Hit One Of your ships! Agent's Turn again");
 							this.paintMap();
 							
 						}
@@ -974,7 +900,7 @@ class GUI extends JFrame
 		
 	}
 	
-	gameState.compHomeGrid = (Grid)smith.placeShips();
+	gameState.addAgentShips(smith.placeShips());
 	/*
 	compHome.addAir(0,0,0);
 	compHome.addBattle(1,0,0);
@@ -1153,6 +1079,14 @@ class GUI extends JFrame
 
 	private boolean isShipRotatedHorizonally() {
 		return horiz;
+	}
+
+	public void setOutText(JTextField outText) {
+		this.outText = outText;
+	}
+
+	public JTextField getOutText() {
+		return outText;
 	}	
 		
 		/*
@@ -1197,11 +1131,16 @@ class AttackMousePressListener extends MouseAdapter
 					int gridj= resolveAxisCoOrdinate(x);
 					int gridi= resolveAxisCoOrdinate(y);
 				
+					Graphics attackPanelGraphics = a.getGraphics();
 					
-	                 System.out.println(gui.acceptPlayerShot(gridi,gridj));
-	                 
-								                               
-					
+	                String acceptPlayerShotString = 
+	                	gui.gameState.acceptPlayerShot(gridi,gridj, attackPanelGraphics, gui.outText);
+	                
+	                //gui.gameState.updatePlayerClick(gridi, gridj, gui);
+	                
+	                
+	                
+					System.out.println(acceptPlayerShotString);
 					System.out.println("Element corresponds to " + gridi + gridj);
 					
 					
