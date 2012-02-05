@@ -753,10 +753,11 @@ class GUI extends JFrame
 		if(gameState.isDeployed())
 		{
 			gameState.playerTurn= true;
+			outText.setText("Player Turn, Fire A Shot!");
 		}
 		else
-		gameState.playerTurn=false;
-		outText.setText("Player Turn, Fire A Shot!");
+			{gameState.playerTurn=false;}
+		
 	}
 	
 	public void agentTurn()
@@ -1190,65 +1191,70 @@ class AttackMousePressListener extends MouseAdapter
 	
 			public void mousePressed(MouseEvent event)
 			{
+				if(gui.gameState.IsAcceptingPlayerInput())
+				{
+					Graphics g = a.getGraphics();
+					int x = event.getX();
+					int y = event.getY();
 				
-				Graphics g = a.getGraphics();
-				int x = event.getX();
-				int y = event.getY();
-			
-				int gridj= -1;
-				int gridi= -1;
-				
-				//corresponds the X co-ord to j grid element
-				
-				if (x < 20)
-					gridj=0;
-				else if (x <40)
-					gridj=1;
-				else if (x <60)
-					gridj=2;
-				else if (x <80)
-					gridj=3;
-				else if (x <100)
-					gridj=4;
-				else if (x <120)
-					gridj=5;
-				else if (x <140)
-					gridj=6;
-				else if (x <160)
-					gridj=7;
-				else if (x <180)
-					gridj=8;
-				else if (x <200)
-					gridj=9;
+					int gridj= -1;
+					int gridi= -1;
+					
+					//corresponds the X co-ord to j grid element
+					
+					if (x < 20)
+						gridj=0;
+					else if (x <40)
+						gridj=1;
+					else if (x <60)
+						gridj=2;
+					else if (x <80)
+						gridj=3;
+					else if (x <100)
+						gridj=4;
+					else if (x <120)
+						gridj=5;
+					else if (x <140)
+						gridj=6;
+					else if (x <160)
+						gridj=7;
+					else if (x <180)
+						gridj=8;
+					else if (x <200)
+						gridj=9;
+	
+					//corresponds the X co-ord to j grid element
+					if (y < 20)
+						gridi=0;
+					else if (y <40)
+						gridi=1;
+					else if (y <60)
+						gridi=2;
+					else if (y <80)
+						gridi=3;
+					else if (y <100)
+						gridi=4;
+					else if (y <120)
+						gridi=5;
+					else if (y <140)
+						gridi=6;
+					else if (y <160)
+						gridi=7;
+					else if (y <180)
+						gridi=8;
+					else if (y <200)
+						gridi=9;
 
-				//corresponds the X co-ord to j grid element
-				if (y < 20)
-					gridi=0;
-				else if (y <40)
-					gridi=1;
-				else if (y <60)
-					gridi=2;
-				else if (y <80)
-					gridi=3;
-				else if (y <100)
-					gridi=4;
-				else if (y <120)
-					gridi=5;
-				else if (y <140)
-					gridi=6;
-				else if (y <160)
-					gridi=7;
-				else if (y <180)
-					gridi=8;
-				else if (y <200)
-					gridi=9;
-
-				
-				gui.gameState.updatePlayerClick(gridj, gridi, gui);
-				
-				System.out.println("Element corresponds to " + gridi + gridj);
-				
-				
+					
+					
+                 System.out.println(gui.shot(gridi,gridj));
+                 gui.gameState.setShipSunkStates();
+							                               
+					
+					System.out.println("Element corresponds to " + gridi + gridj);
+					
+					
+				}
 			}
 			/*
 			public void mouseRelased(MouseEvent event){}

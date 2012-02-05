@@ -136,4 +136,8 @@ public class GameState {
 		deployed = true;
 
 	}
+
+	public boolean IsAcceptingPlayerInput() {
+		return playerTurn && !gameOver && deployed;
+	}
 }
