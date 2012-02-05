@@ -1197,59 +1197,13 @@ class AttackMousePressListener extends MouseAdapter
 					int x = event.getX();
 					int y = event.getY();
 				
-					int gridj= -1;
-					int gridi= -1;
+					int gridj= resolveAxisCoOrdinate(x);
+					int gridi= resolveAxisCoOrdinate(y);
+				
 					
-					//corresponds the X co-ord to j grid element
-					
-					if (x < 20)
-						gridj=0;
-					else if (x <40)
-						gridj=1;
-					else if (x <60)
-						gridj=2;
-					else if (x <80)
-						gridj=3;
-					else if (x <100)
-						gridj=4;
-					else if (x <120)
-						gridj=5;
-					else if (x <140)
-						gridj=6;
-					else if (x <160)
-						gridj=7;
-					else if (x <180)
-						gridj=8;
-					else if (x <200)
-						gridj=9;
-	
-					//corresponds the X co-ord to j grid element
-					if (y < 20)
-						gridi=0;
-					else if (y <40)
-						gridi=1;
-					else if (y <60)
-						gridi=2;
-					else if (y <80)
-						gridi=3;
-					else if (y <100)
-						gridi=4;
-					else if (y <120)
-						gridi=5;
-					else if (y <140)
-						gridi=6;
-					else if (y <160)
-						gridi=7;
-					else if (y <180)
-						gridi=8;
-					else if (y <200)
-						gridi=9;
-
-					
-					
-                 System.out.println(gui.shot(gridi,gridj));
-                 gui.gameState.setShipSunkStates();
-							                               
+	                 System.out.println(gui.shot(gridi,gridj));
+	                 gui.gameState.setShipSunkStates();
+								                               
 					
 					System.out.println("Element corresponds to " + gridi + gridj);
 					
@@ -1262,6 +1216,31 @@ class AttackMousePressListener extends MouseAdapter
 			public void mouseEntered(MouseEvent event){}
 			public void mouseExit(MouseEvent event){}
 			*/
+
+
+			private int resolveAxisCoOrdinate(int x) {
+				if (x < 20)
+					return 0;
+				else if (x <40)
+					return 1;
+				else if (x <60)
+					return 2;
+				else if (x <80)
+					return 3;
+				else if (x <100)
+					return 4;
+				else if (x <120)
+					return 5;
+				else if (x <140)
+					return 6;
+				else if (x <160)
+					return 7;
+				else if (x <180)
+					return 8;
+				else if (x <200)
+					return 9;
+				return -1;
+			}
 
 
 			
