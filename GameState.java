@@ -4,7 +4,7 @@ public class GameState {
 	private static final int HeightOfGrid = 10;
 	private boolean gameOver;
 	private boolean playerAircraftCarrierSunk;
-	public Grid playerHome;
+	public Grid playerHomeGrid;
 	private boolean playerBattleSunk;
 	private boolean allAgentShipsSunk;
 	private boolean allPlayerShipsSunk;
@@ -12,6 +12,14 @@ public class GameState {
 	boolean playerDestSunk;
 	boolean agentBattleSunk;
 	boolean agentAirSunk;
+	public Grid compHomeGrid;
+	public Grid compAtt;
+	public Grid playerAtt;
+	public InfluenceMap influenceMap;
+	private boolean playerMineSunk;
+	private boolean agentDestSunk;
+	private boolean agentSubSunk;
+	private boolean agentMineSunk;
 
 	public GameState ()
 	{
@@ -23,7 +31,12 @@ public class GameState {
 		playerSubSunk = false;
 		agentAirSunk = false;
 		agentBattleSunk =false;
-		playerHome = new Grid(WidthOfGrid,HeightOfGrid);
+		playerHomeGrid = new Grid(WidthOfGrid,HeightOfGrid);
+		compHomeGrid = new Grid(WidthOfGrid, HeightOfGrid);
+		compAtt = new Grid(WidthOfGrid, HeightOfGrid);
+		playerAtt = new Grid(WidthOfGrid, HeightOfGrid);
+		influenceMap = new InfluenceMap();
+				
 	}
 
 	public boolean IsGameOver() {
@@ -41,54 +54,54 @@ public class GameState {
 	}
 
 
-	public void setShipSunkStates(GUI gui)
+	public void setShipSunkStates()
 	{
-		if(playerHome.checkAirSunk())
+		if(playerHomeGrid.checkAirSunk())
 		{
 			playerAircraftCarrierSunk = true;			
 		}
-		if(playerHome.checkBattleSunk())
+		if(playerHomeGrid.checkBattleSunk())
 		{
 			playerBattleSunk = true;
 		}
-		if(playerHome.checkDestSunk())
+		if(playerHomeGrid.checkDestSunk())
 		{
 			playerDestSunk = true;
 		}
-		if(playerHome.checkSubSunk())
+		if(playerHomeGrid.checkSubSunk())
 		{
 			playerSubSunk = true;
 		}
-		if(playerHome.checkMineSunk())
+		if(playerHomeGrid.checkMineSunk())
 		{
-			gui.playerMineSunk = true;
+			playerMineSunk = true;
 		}
-		if(gui.compHome.checkAirSunk())
+		if(compHomeGrid.checkAirSunk())
 		{
-			gui.agentAirSunk = true;
+			agentAirSunk = true;
 		}
-		if(gui.compHome.checkBattleSunk())
+		if(compHomeGrid.checkBattleSunk())
 		{
 			agentBattleSunk = true;
 		}
-		if(gui.compHome.checkDestSunk())
+		if(compHomeGrid.checkDestSunk())
 		{
-			gui.agentDestSunk = true;
+			agentDestSunk = true;
 		}
-		if(gui.compHome.checkSubSunk())
+		if(compHomeGrid.checkSubSunk())
 		{
-			gui.agentSubSunk = true;
+			agentSubSunk = true;
 		}
-		if(gui.compHome.checkMineSunk())
+		if(compHomeGrid.checkMineSunk())
 		{
-			gui.agentMineSunk = true;
+			agentMineSunk = true;
 			
 		}
 		
-		if(gui.agentAirSunk&&agentBattleSunk&&gui.agentDestSunk&&gui.agentSubSunk&&gui.agentMineSunk)
+		if(agentAirSunk&&agentBattleSunk&&agentDestSunk&&agentSubSunk&&agentMineSunk)
 			allAgentShipsSunk = true;
 		
-		if(playerAircraftCarrierSunk&&playerBattleSunk&&playerDestSunk&&playerSubSunk&&gui.playerMineSunk)
+		if(playerAircraftCarrierSunk&&playerBattleSunk&&playerDestSunk&&playerSubSunk&&playerMineSunk)
 			allPlayerShipsSunk = true;
 	
 	}
