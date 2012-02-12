@@ -3,7 +3,7 @@
  * Created: 19 December 2004 16:07:06
  * Modified: 19 December 2004 16:07:06
  */
-package tests.TestRunners;
+package testRunners;
 import java.io.*;
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package tests.TestRunners;
+package testRunners;
 /*
  * Author: Michael
  * Created: 14 February 2005 14:11:27

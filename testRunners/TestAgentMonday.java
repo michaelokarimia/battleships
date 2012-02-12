@@ -1,4 +1,4 @@
-package tests.TestRunners;
+package testRunners;
 /*
  * Author: Michael
  * Created: 14 February 2005 14:11:27
@@ -22,7 +22,7 @@ import Battleships.NumberGenerator;
 
 
 
-public class TestAgentSat 
+public class TestAgentMonday 
 {
 
 	public static void main (String args[])
@@ -30,13 +30,6 @@ public class TestAgentSat
 	{
 		System.out.println("tests the agent and influence map interaction");
 
-		boolean acSunk = false;
-		boolean bSunk = false;
-		boolean dSunk = false;
-		boolean sSunk = false;
-		boolean mSunk = false;
-		
-		
 //create player grid and place ships. also create computer attack board and the corresponding influence map		
 		Grid playerHomeBoard = new Grid(10,10);
 		
@@ -50,7 +43,7 @@ public class TestAgentSat
 		
 		InfluenceMap m = new InfluenceMap();
 		//files to save Influence maps in
-	/*	File f = new File("mapStore.dat");
+		File f = new File("data/mapStore.dat");
 		
 		if(f.exists())
 		{
@@ -62,10 +55,10 @@ public class TestAgentSat
 			Store = (MapStore)in.readObject();
 			
 			System.out.println("size is " + Store.size());
-		//	if (Store.size()> 1)
-			//m = (InfluenceMap)Store.getBestMap();
-			//else 
-			//	m = Store.getMap(0);
+			if (Store.size()> 1)
+			m = (InfluenceMap)Store.getBestMap();
+			else 
+				m = Store.getMap(0);
 			if (m ==null)
 				System.out.println("m is null");
 			
@@ -82,11 +75,11 @@ public class TestAgentSat
 			
 				System.out.println("The stored map is \n" +myMap.toString());	
 			}
-			*//*
+			*/
 					
 			System.out.println("The map to play on is \n" +m.toString());		
 			
-		}*/
+		}
 		/*  Configuration 4 *//*
 		playerHomeBoard.addAir(5,0, 1);
 		playerHomeBoard.addBattle(6,3, 1);
@@ -95,7 +88,7 @@ public class TestAgentSat
 		playerHomeBoard.addDest(7,9, 1);
 		/**/
 		
-		/*  Configuration 3 *
+		/*  Configuration 3 */
 		playerHomeBoard.addAir(0,0, 1);
 		playerHomeBoard.addBattle(0,3, 1);
 		playerHomeBoard.addSub(0,5, 1);
@@ -117,58 +110,6 @@ public class TestAgentSat
 		playerHomeBoard.addDest(3,0, 0);
 		playerHomeBoard.addMine(4,0,0);
 		/**/
-		/*Random*
-		playerHomeBoard.addAir(3,5, 1);
-		playerHomeBoard.addBattle(0,3, 1);
-		playerHomeBoard.addSub(1,5, 0);
-		playerHomeBoard.addMine(4,6,1);
-		playerHomeBoard.addDest(8,0, 0);
-		/**/
-		
-		while(!playerHomeBoard.allShipsPlaced())
-		{
-		NumberGenerator gen = new NumberGenerator();
-		int x = gen.rand(10);
-		int y = gen.rand(10);
-		int o = gen.rand(1);
-				
-		x = gen.rand(10);
-		y = gen.rand(10);
-		o = gen.rand(2);		
-		//System.out.println("vertical sub x = " + x + "\n");
-		//System.out.println("vertical sub y = " + y + "\n");
-		playerHomeBoard.addSub(x,y, o);
-		
-		x = gen.rand(10);
-		y = gen.rand(10);
-		o = gen.rand(2);		
-		//System.out.println("vertical battle x = " + x + "\n");
-		//System.out.println("vertical battle y = " + y + "\n");
-		playerHomeBoard.addBattle(x,y, o);	
-	
-		x = gen.rand(10);
-		y = gen.rand(10);
-		o = gen.rand(2);				
-		//System.out.println("vertical air x = " + x + "\n");
-		//System.out.println("vertical air y = " + y + "\n");
-		playerHomeBoard.addAir(x,y, o);
-		
-		x = gen.rand(10);
-		y = gen.rand(10);
-		o = gen.rand(2);				
-		//System.out.println("vertical mine x = " + x + "\n");
-		//System.out.println("vertical mine y = " + y + "\n");
-		playerHomeBoard.addMine(x,y, o);
-
-		x = gen.rand(10);
-		y = gen.rand(10);
-		o = gen.rand(2);
-		//System.out.println("horizontal dest x = " + x + "\n");
-		//System.out.println("horizontal dest y = " + y + "\n");
-		playerHomeBoard.addDest(x,y, o);
-
-	}
-		
 		System.out.println("Player grid");
 		System.out.println(playerHomeBoard.toString());
 
@@ -209,31 +150,25 @@ public class TestAgentSat
 						int checki = m.getHotspotI();
 						int checkj = m.getHotspotJ();
 						
-						if(computerAttackBoard.getGridVal(checki,checkj)==0)
+						if(computerAttackBoard.isValidPlaceForAShip(checki,checkj))
 						{				
 							i=m.getHotspotI();
 							j=m.getHotspotJ();
 							System.out.println("Target single hotspot at " + i + " " +j);
 						}
-						
-						else if(computerAttackBoard.getGridVal(checki,checkj)==0)
-							m.set(i,j,-5);
-							
-						
-						
-						//else 
+						else 
 							//generate a random co-ord that has not already been taken
-							/*i=m.getHotspotI();
+							i=m.getHotspotI();
 							j=m.getHotspotJ();
 					
 							System.out.println("Targeting single hotspot");
-						
+							
 						while(computerAttackBoard.getGridVal(i,j) == 8 || computerAttackBoard.getGridVal(i,j) == 1)
 							{	
 								System.out.println("i = "+ i + " j=" + j);
 								i = gen.rand(10);
 								j = gen.rand(10);
-							}*/
+							}
 					}
 				
 				
@@ -292,20 +227,9 @@ public class TestAgentSat
 						j = gen.rand(10);
 					}
 					else
-						
-					
 					{
-						while(computerAttackBoard.getGridVal(i,j) != 0 && i<10 && i>-1 && j<10 && j>-1 )
-						{
-								//select a downward right diagonal
-								if(lasti+1 != 10  && (lastj+1) != 10)
-								{
-									System.out.println("right diagonal");
-									i = lasti+1;
-									j = lastj+1;
-								}
-								else
-								System.out.println("random mode");
+						while(computerAttackBoard.getGridVal(i,j) == 8 || computerAttackBoard.getGridVal(i,j) == 1)
+							{
 								i = gen.rand(10);
 								j = gen.rand(10);
 							}
@@ -315,36 +239,15 @@ public class TestAgentSat
 				//shot code
 				int sqrVal = playerHomeBoard.getGridVal(i,j);
 						
-				
-						if(sqrVal<0)
+						if(sqrVal < 0 || sqrVal==1)
 						{
-							System.out.println("Ship is sunk here! End of turn"); 
-							agentTurn = false;
-						}
-							
-						if(sqrVal==1)
-						{
-							System.out.println("Miss! End of turn"); 
-							/*
-							while(computerAttackBoard.getGridVal(i,j) !=0)
+							System.out.println("Shot already taken! Have another go"); 
+							while(computerAttackBoard.getGridVal(i,j) == 8 || computerAttackBoard.getGridVal(i,j) == 1)
 							{
-								
-								//select a downward right diagonal
-								if(lasti+1 != 10  && (lastj+1) != 10)
-								{
-									System.out.println("right diagonal");
-									i = lasti+1;
-									j = lastj+1;
-								}
-								else
-									
-								System.out.println("random gen");	
 								i = gen.rand(10);
 								j = gen.rand(10);
-							}*/
-							//agentTurn = false;
-							m.miss(i,j);
-							agentTurn = false;
+							}
+							//computerAttackBoard.shot(i,j);
 						}
 						
 						else
@@ -366,101 +269,6 @@ public class TestAgentSat
 								hits++;
 								System.out.println("Influence Map");
 								System.out.println(m.toString());
-								
-								/*displays sunk ship on computer attack grid*/
-								if(playerHomeBoard.checkAirSunk())
-								{
-									System.out.println("Aircraft carrier sunk");
-									for(int x = 0; x <10; x++)
-									{
-										for(int y = 0; y <10; y++)
-										{
-											if(playerHomeBoard.getGridVal(x,y)==-3)
-											{
-												//m.set(x,y,-3);
-												computerAttackBoard.update(x,y,-3);
-												m.sunk(i,j);
-											}
-																	
-										}
-									}
-									
-								}
-								
-								if(playerHomeBoard.checkBattleSunk())
-								{
-									System.out.println("Battleship sunk");
-									for(int x = 0; x <10; x++)
-									{
-										for(int y = 0; y <10; y++)
-										{
-											if(playerHomeBoard.getGridVal(x,y)==-4)
-											{
-												computerAttackBoard.update(x,y,-4);
-												m.sunk(i,j);
-											}
-																	
-										}
-									}
-									
-								}
-								
-								if(playerHomeBoard.checkDestSunk())
-								{
-									System.out.println("Destroyer sunk");
-									for(int x = 0; x <10; x++)
-									{
-										for(int y = 0; y <10; y++)
-										{
-											if(playerHomeBoard.getGridVal(x,y)==-1)
-											{
-												computerAttackBoard.update(x,y,-1);
-												m.sunk(i,j);
-											}
-																	
-										}
-									}
-									
-								}
-								
-								if(playerHomeBoard.checkSubSunk())
-								{
-									System.out.println("Sub sunk");
-									for(int x = 0; x <10; x++)
-									{
-										for(int y = 0; y <10; y++)
-										{
-											if(playerHomeBoard.getGridVal(x,y)==-5)
-											{
-												computerAttackBoard.update(x,y,-5);
-												m.sunk(i,j);
-											}
-																	
-										}
-									}
-									
-								}
-								
-								if(playerHomeBoard.checkMineSunk())
-								{
-									System.out.println("Minesweeper sunk");
-									for(int x = 0; x <10; x++)
-									{
-										for(int y = 0; y <10; y++)
-										{
-											if(playerHomeBoard.getGridVal(x,y)==-6)
-											{
-												computerAttackBoard.update(x,y,-6);
-												m.sunk(i,j);
-											}
-																	
-										}
-									}
-									
-								}
-								
-								System.out.println("PlayerHomeBoard Map");
-								System.out.println(playerHomeBoard.toString());
 							}
 						
 						m.searchDeadends();
@@ -473,10 +281,7 @@ public class TestAgentSat
 						if(sqrVal==0)
 							agentTurn = false;
 				
-						/*
-						for(int c = 0; c<100000;c++)
-						{//waste time
-						}*/
+				
 			}
 			turns++;
 			turns2++;
@@ -484,7 +289,7 @@ public class TestAgentSat
 			
 			if (turns2 >= 20 && hits == 0)
 			{
-				m.clearAll();
+				//m.clearAll();
 				System.out.println("20 or more turns without a hit, clearing Influence map");
 				turns2 = 0;
 			}
@@ -496,6 +301,14 @@ public class TestAgentSat
 			*/
 			
 			agentTurn= true;
+			
+			
+						for(int c = 0; c<10000;c++)
+						{
+							for(int k = 0; k<1000;k++)
+							{//waste time
+							}
+						}
 		}
 		
 		InfluenceMap moderatingMap = new InfluenceMap();
@@ -506,7 +319,7 @@ public class TestAgentSat
 		
 			System.out.println("Game over man, number of turns was " + turns);
 			System.out.println("m Map is");
-		/*	System.out.println(m.toString());
+			System.out.println(m.toString());
 			//store.add(m);
 		
 			
@@ -519,7 +332,7 @@ public class TestAgentSat
 		/*
 			System.out.println("Summed moderating map2");
 			System.out.println(moderatingMap.toString());
-			*
+			*/
 		//Initialise a newMapstore object
 		
 		//Initialise a new Map object
@@ -530,7 +343,7 @@ public class TestAgentSat
 		//checks if datastore file exists
 		if(f.exists())
 		{
-			InfluenceMap blankMap = new InfluenceMap();
+				InfluenceMap blankMap = new InfluenceMap();
 				
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(f));
 			
@@ -555,7 +368,7 @@ public class TestAgentSat
 			
 		blankMap.addMap(m);
 			System.out.println("Summed m + blank map again \n" + blankMap.toString());	
-		*
+		*/
 			
 			System.out.println("Saving this map \n" + moderatingMap.toString() +"\n with " +turns + " Turns");	
 			moderatingMap.setTurns(turns);
@@ -589,15 +402,12 @@ public class TestAgentSat
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));
 		System.out.println("The map stored is \n" + moderatingMap.toString());
 		out.writeObject(myStore);
-		out.close(); 
-	}*/
+		out.close();
+	}
 	
-		//	System.out.println("The number of maps stored is = " + myStore.size());
+			System.out.println("The number of maps stored is = " + myStore.size());
 			System.out.println("Game over man, number of turns was " + turns);
 
 
 	}
 }
-/*
-
-	*/
