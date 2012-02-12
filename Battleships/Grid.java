@@ -12,6 +12,10 @@ package Battleships;
  */
 
 import java.io.Serializable;
+
+import Battleships.exception.InitialPositionOccupiedException;
+import Battleships.exception.PositionExceedsBoardException;
+import Battleships.exception.PositionOccupiedException;
 	
 	
 public class Grid implements Serializable 
@@ -190,8 +194,34 @@ public class Grid implements Serializable
 	
 	public boolean addSub(int i, int j, int s)
 	{
-		 submarine = new Submarine(this, i, j, s);
-			return checkSubPlaced();
+		boolean isHorizontal = (s == 0);
+		
+		try{
+		
+			Submarine sub = new Submarine(this, i, j, isHorizontal);
+			submarine = sub;
+		}
+		
+		
+		catch (PositionOccupiedException Exception)
+		{
+			System.out.println(String.format("Cannot place %s submarine here, position is occupied \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+		
+		catch (PositionExceedsBoardException Exception)
+		{
+			System.out.println(String.format("Cannot place %s submarine here, ship will not fit on grid \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+		
+		catch (InitialPositionOccupiedException Exception)
+		{
+			System.out.println(String.format("Cannot place %s submarine here, initial point is already occupied \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+			 
+		 
+		  
+		
+		 return checkSubPlaced();
 	}
 	
 

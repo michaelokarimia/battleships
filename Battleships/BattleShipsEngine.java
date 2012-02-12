@@ -56,7 +56,7 @@ public class BattleShipsEngine {
 	
 		while(!gui.data.gameState.playerHomeGrid.allShipsPlaced())
 		{
-				System.out.println("place your ships now");	
+				//PlayerDeploymentPhase, wait for player to place all their ships
 		}
 		
 		gui.data.gameState.addAgentShips(smith.placeShips());
