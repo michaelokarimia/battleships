@@ -11,7 +11,7 @@ import Battleships.exception.InitialPositionOccupiedException;
 import Battleships.exception.PositionExceedsBoardException;
 import Battleships.exception.PositionOccupiedException;
 
-public class Battle extends Ship implements Serializable
+public class Battleship extends Ship implements Serializable
 {
 	
 	private int segments = 4;	
@@ -29,7 +29,7 @@ public class Battle extends Ship implements Serializable
 		@throws PositionExceedsBoardException if the ship cannot fit onto the board 
 		@throws PositionOccupiedException if any of the 4 elements about to be filled are already filled
 	*/
-	public Battle(Grid board ,int i, int j, int s)
+	public Battleship(Grid board ,int i, int j, int s)
 	{
 		
 		int userColumn = board.getWidth();

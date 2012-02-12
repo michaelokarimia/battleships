@@ -10,7 +10,7 @@ import Battleships.exception.InitialPositionOccupiedException;
 import Battleships.exception.PositionExceedsBoardException;
 import Battleships.exception.PositionOccupiedException;
 
-public class Mine extends Ship implements Serializable
+public class Minesweeper extends Ship implements Serializable
 {
 	public Grid board = null;
 	private int segments = 2;
@@ -28,7 +28,7 @@ public class Mine extends Ship implements Serializable
 		@throws PositionOccupiedException if any of the 2 elements about to be filled are already filled
 		@throws IllegalArgumentException if the last parameter does not equal 1 or 0
 		*/
-	public Mine(Grid board, int i, int j, int s)
+	public Minesweeper(Grid board, int i, int j, int s)
 	{
 		//Grid board;
 		int userColumn = board.getWidth();

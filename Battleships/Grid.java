@@ -28,11 +28,11 @@ public class Grid implements Serializable
 	private boolean airPlaced = false;
 	private boolean allShipsSunk = false;
 	
-	private Mine minesweeper;
-	private Sub submarine;
-	private Dest destroyer;
-	private Battle battleship;
-	private Air aircraftCarrier;
+	private Minesweeper minesweeper;
+	private Submarine submarine;
+	private Destroyer destroyer;
+	private Battleship battleship;
+	private AircraftCarrier aircraftCarrier;
 	
 	
 		/**
@@ -158,7 +158,7 @@ public class Grid implements Serializable
 	
 	public boolean addMine(int i, int j, int s)
 	{
-		minesweeper = new Mine(this, i, j, s);
+		minesweeper = new Minesweeper(this, i, j, s);
 		return checkMinePlaced();
 	}
 	
@@ -190,7 +190,7 @@ public class Grid implements Serializable
 	
 	public boolean addSub(int i, int j, int s)
 	{
-		 submarine = new Sub(this, i, j, s);
+		 submarine = new Submarine(this, i, j, s);
 			return checkSubPlaced();
 	}
 	
@@ -221,7 +221,7 @@ public class Grid implements Serializable
 	
 	public boolean addDest(int i, int j, int s)
 	{
-		 destroyer = new Dest(this, i, j, s);
+		 destroyer = new Destroyer(this, i, j, s);
 			return checkDestPlaced();
 	}
 		
@@ -251,7 +251,7 @@ public class Grid implements Serializable
 	
 	public boolean addBattle(int i, int j, int s)
 	{
-		 battleship = new Battle(this, i, j, s);
+		 battleship = new Battleship(this, i, j, s);
 			return checkBattlePlaced();
 	}
 	
@@ -294,7 +294,7 @@ public class Grid implements Serializable
 	
 	public boolean addAir(int i, int j, int s)
 	{
-		 aircraftCarrier = new Air(this, i, j, s);
+		 aircraftCarrier = new AircraftCarrier(this, i, j, s);
 		 return checkAirPlaced();
 			
 	}

@@ -5,7 +5,7 @@ Instructions to draws a sunk element, signifying part of a sunk ship on the scre
 	
 import java.awt.*;
 
-public class Sunk 
+public class SunkIcon 
 {
 
 	public static void paint(Graphics g, int xLeft, int yTop)
