@@ -22,6 +22,10 @@ package Battleships;
 
 import java.io.Serializable;
 
+import Battleships.exception.InitialPositionOccupiedException;
+import Battleships.exception.PositionExceedsBoardException;
+import Battleships.exception.PositionOccupiedException;
+
 public class Sub extends Ship implements Serializable
 {
 	//public Grid board = null;

@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
+import Battleships.Graphics.HitIcon;
+import Battleships.Graphics.MissIcon;
+
 public class GameState {
 
 	private static final int WidthOfGrid = 10;

@@ -7,6 +7,10 @@ package Battleships;
 
 import java.io.Serializable;
 
+import Battleships.exception.InitialPositionOccupiedException;
+import Battleships.exception.PositionExceedsBoardException;
+import Battleships.exception.PositionOccupiedException;
+
 public class Dest extends Ship implements Serializable
 {
 	private int segments = 3;

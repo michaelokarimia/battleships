@@ -1,6 +1,10 @@
 package Battleships;
 import javax.swing.JTextField;
 
+import Battleships.Graphics.AttackPanel;
+import Battleships.Graphics.HomePanel;
+import Battleships.Graphics.InfluencePanel;
+
 
 public class BattleShipsEngine {
 	public AttackPanel attackPanel;
