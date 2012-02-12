@@ -1,4 +1,4 @@
-package tests.TestRunners;
+package testRunners;
 
 import Battleships.Agent;
 import Battleships.Grid;
