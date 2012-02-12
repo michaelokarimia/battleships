@@ -14,7 +14,7 @@ public class NumberGenerator
 	private Random pos;
 		
 	/**Construtor */
-	NumberGenerator()
+	public NumberGenerator()
 	{
 		pos = new Random();
 	}

@@ -6,7 +6,7 @@ package Battleships;
  */
 
 import java.io.Serializable; 
-class InfluenceMap implements Serializable
+public class InfluenceMap implements Serializable
 {
 	private int[][] map;
 	private int maxVal=0;
