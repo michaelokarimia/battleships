@@ -13,14 +13,14 @@ import Battleships.Graphics.Destroyer;
 import Battleships.Graphics.DestroyerH;
 import Battleships.Graphics.HitIcon;
 import Battleships.Graphics.HomePanel;
-import Battleships.Graphics.IMap;
+import Battleships.Graphics.InfluenceMapGraphic;
 import Battleships.Graphics.InfluencePanel;
 import Battleships.Graphics.Minesweeper;
 import Battleships.Graphics.MinesweeperH;
 import Battleships.Graphics.MissIcon;
 import Battleships.Graphics.Submarine;
 import Battleships.Graphics.SubmarineH;
-import Battleships.Graphics.Sunk;
+import Battleships.Graphics.SunkIcon;
 
 import java.util.*;	
 	
@@ -656,7 +656,7 @@ class GUI extends JFrame
 			for (int j = 0; j < 10; j++)//change this to CoLumns for default
 			{
 				int col = 0;
-				IMap.paint(g,(j*20),(i*20), col);
+				InfluenceMapGraphic.paint(g,(j*20),(i*20), col);
 			}
 		}
 		
@@ -737,7 +737,7 @@ class GUI extends JFrame
 				
 				if(data.showMap)
 				{
-					IMap.paint(g,(j*20),(i*20), col);
+					InfluenceMapGraphic.paint(g,(j*20),(i*20), col);
 				}
 			}
 		}
@@ -756,13 +756,13 @@ class GUI extends JFrame
 				if(data.gameState.isCompHomegridRefIsminus3(i,j) && data.gameState.isAgentAirSunk())
 				{					
 					Graphics attackPanelGraphics = data.attackPanel.getGraphics();	
-					Sunk.paint(attackPanelGraphics,(j*20),(i*20));
+					SunkIcon.paint(attackPanelGraphics,(j*20),(i*20));
 				}
 				
 				if(data.gameState.isCompHomeGridRefMinus4(i,j) && data.gameState.isAgentBattleSunk())
 				{					
 					Graphics ap = data.attackPanel.getGraphics();	
-					Sunk.paint(ap,(j*20),(i*20));
+					SunkIcon.paint(ap,(j*20),(i*20));
 				}
 				
 				//(agentMineSunk || agentDestSunk || agentSubSunk || agentBattleSunk

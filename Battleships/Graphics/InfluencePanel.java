@@ -28,7 +28,7 @@ public class InfluencePanel extends JPanel
 	{
 		super.paintComponent(g);
 		
-		IMap.paint(g,100,100,170);
+		InfluenceMapGraphic.paint(g,100,100,170);
 		
 	}
 	

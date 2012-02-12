@@ -12,7 +12,7 @@ import Battleships.exception.PositionExceedsBoardException;
 import Battleships.exception.PositionOccupiedException;
 
 
-public class Air extends Ship implements Serializable
+public class AircraftCarrier extends Ship implements Serializable
 {
 	
 		private int remainingIntactCells = 5;	
@@ -30,7 +30,7 @@ public class Air extends Ship implements Serializable
 		@throws PositionExceedsBoardException if the ship cannot fit onto the board 
 		@throws PositionOccupiedException if any of the 5 elements about to be filled are already filled
 	*/
-		public Air(Grid board, int i, int j, int s)
+		public AircraftCarrier(Grid board, int i, int j, int s)
 		{
 		
 			int userColumn = board.getWidth();

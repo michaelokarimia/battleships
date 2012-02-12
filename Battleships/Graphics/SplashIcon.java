@@ -5,7 +5,7 @@ Instructions to draw a splash, signifing a missed shot on the screen.
 	
 import java.awt.*;
 
-public class Splash 
+public class SplashIcon 
 {
 	/**
 		Constructs a splash shape with a given top left corner.
@@ -16,7 +16,7 @@ public class Splash
 	private int xLeft;
 	private int yTop;
 	
-	public Splash(int x, int y)
+	public SplashIcon(int x, int y)
 	{
 		xLeft = x;
 		yTop = y;
