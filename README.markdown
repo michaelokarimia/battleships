@@ -10,7 +10,7 @@ Expect much refactoring as the codebase evolves and SOLID principles are applied
 
 You may either run the latest unstable jarfile or run the code from a Java IDE.
 
-* To run the jarfile, download [battleships jar file](https://github.com/michaelokarimia/battleships/blob/master/jarfiles/battleships.jar) and run the jar file. In the command line or terminal use the following command:
+* To run the jarfile, download the [battleships.jar file](https://github.com/michaelokarimia/battleships/downloads). You may simply open the jar file if you already have file associations set up for jar files, or if not, in the command line or terminal use the following command:
 
 	`java -jar battleships.jar`
 
