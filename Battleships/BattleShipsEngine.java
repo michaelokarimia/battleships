@@ -67,10 +67,10 @@ public class BattleShipsEngine {
 		gui.data.outText.setText(gui.data.gameState.turnToString());
 
 		
-		while (!gui.getGameOver() && gui.data.gameState.isBothPlayerAndAgentShipsDeployed())
+		while (!gui.getGameOver())
 		{
 			
-			while (gui.data.gameState.isPlayerTurn())
+			while (gui.data.gameState.isPlayerTurn() && !gui.getGameOver())
 			{
 				gui.data.gameState.setShipSunkStates();
 				if(gui.data.gameState.areAllAgentShipsSunk())
@@ -79,15 +79,10 @@ public class BattleShipsEngine {
 					gui.data.gameState.SetGameOver();
 					gui.data.gameState.PlayerIsTheWinner();
 				}
-				else
-				{}
-		
-				
 			}
 			gui.repaint();
-	//		System.out.println("AgentTurnNoWNOWNOWNOWNOW!!");
-			
-			while(gui.data.gameState.isAgentTurn())
+		
+			while(gui.data.gameState.isAgentTurn() && !gui.data.gameState.IsGameOver())
 			{
 			
 				System.out.println("agent turn");

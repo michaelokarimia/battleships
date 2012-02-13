@@ -94,7 +94,7 @@ public class GameState {
 	}
 
 	public void SetGameOver() {
-		gameOver = false;
+		gameOver = true;
 
 	}
 
