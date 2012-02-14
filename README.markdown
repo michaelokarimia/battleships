@@ -14,7 +14,7 @@ You may either run the latest unstable jarfile or run the code from a Java IDE.
 
 	`java -jar battleships.jar`
 
-* Alternatively, open the project in your favourite Java IDE and run the class BattleshipsEngine.java. Unit tests reside in the unitTests directory and are runable under JUnit. Legacy executable test classes can be found in the testrunner directory
+* Alternatively, open the project in your favourite Java IDE and run the class BattleshipsEngine.java. Unit tests reside in the unitTests directory and are runable under JUnit. 
 
 ## Dissertation Abstract:
 The goal of the project is to produce a program of the turn-based board game Battleships, where a human user plays against an Artificial Intelligence agent.
