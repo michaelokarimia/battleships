@@ -22,106 +22,65 @@ public class AircraftCarrier extends Ship implements Serializable
 		The value entered represents an Aircraft Carrier on the grid.
 		The elements will either be filled in row from left to right or a column from top to bottom
 				
-		@param i the row index to postion the values
-		@param j the column postition to start placing the values from left to right
-		@param s if this is an 0 a horizonal ship will be entered in the grid, if this parameter equals a 1 a vertical ship will be entered in the grid
+		@param i the row index to position the values
+		@param j the column position to start placing the values from left to right
+		@param isHorizontal ship orientation
 		
-		@throws InitialPositionOccupiedException if the inital poition is already occupied with a ship
+		@throws InitialPositionOccupiedException if the initial position is already occupied with a ship
 		@throws PositionExceedsBoardException if the ship cannot fit onto the board 
 		@throws PositionOccupiedException if any of the 5 elements about to be filled are already filled
 	*/
-		public AircraftCarrier(Grid board, int i, int j, int s)
+		public AircraftCarrier(Grid board, int i, int j, boolean isHorizontal)
 		{
 		
 			int userColumn = board.getWidth();
 			int userRow = board.getLength();	
 			
 			boolean airPlaced = board.checkAirPlaced();
-
+			if (airPlaced)
+				return;
 		
-			if (s < 0 || s > 1)
-				throw new IllegalArgumentException();
-		
-		
-			if(airPlaced == false && s== 0)
-			try
+			if(isHorizontal)
 			{
-			if(board.getGridVal(i,j) != 0)
-				throw new InitialPositionOccupiedException();
-			if(j+5>userColumn)
-				throw new PositionExceedsBoardException();
-		
-			for(int c =j; c < j+5 ; c++)
-				while(board.getGridVal(i,c) != 0)
-				{
-					throw new PositionOccupiedException();
-				}
+				if(board.getGridVal(i,j) != 0)
+					throw new InitialPositionOccupiedException();
+				if(j+5>userColumn)
+					throw new PositionExceedsBoardException();
 			
+				for(int c =j; c < j+5 ; c++)
+					while(board.getGridVal(i,c) != 0)
+					{
+						throw new PositionOccupiedException();
+					}
 				
-			for(int c =j; c < j+5 ; c++)
-				if(board.getGridVal(i,c) == 0)
-				{
-					board.update(i,c,5);
-					board.setAirPlacedTrue();
-				}
-			}
-		
-			catch (PositionOccupiedException Exception)
-			{
-				System.out.println("Cannot place horizontal Aircraft Carrier here, position is occupied \n");
-			}
-		
-			catch (PositionExceedsBoardException Exception)
-			{
-				System.out.println("Cannot place horizontal Aircraft Carrier here, ship will not fit on grid \n");
-			}
-		
-			catch (InitialPositionOccupiedException Exception)
-			{
-				System.out.println("Cannot place horizontal Aircraft Carrier here, initial point is already occupied \n");
-			}
-			
-			else if(airPlaced == false && s ==1)
-			{
-		
-			try
-			{
 					
-			if(board.getGridVal(i,j) != 0)
-				throw new PositionOccupiedException();
-			if(i+5>userRow)
-				throw new PositionExceedsBoardException();
-		
-			for(int r =i; r < i+5 ; r++)
-				while(board.getGridVal(r,j) != 0)
-				{
-					throw new PositionOccupiedException();
-				}
+				for(int c =j; c < j+5 ; c++)
+					if(board.getGridVal(i,c) == 0)
+					{
+						board.update(i,c,5);
+						board.setAirPlacedTrue();
+					}
+			}
+			else 
+			{
+					if(board.getGridVal(i,j) != 0)
+						throw new PositionOccupiedException();
+					if(i+5>userRow)
+						throw new PositionExceedsBoardException();
 				
-			for(int r =i; r < i+5 ; r++)
-				if(board.getGridVal(r,j) == 0)
-				{
-					board.update(r,j,5);
-					board.setAirPlacedTrue();
-				}
-			
+					for(int r =i; r < i+5 ; r++)
+						while(board.getGridVal(r,j) != 0)
+						{
+							throw new PositionOccupiedException();
+						}
+						
+					for(int r =i; r < i+5 ; r++)
+						if(board.getGridVal(r,j) == 0)
+						{
+							board.update(r,j,5);
+							board.setAirPlacedTrue();
+						}
 			}
-		
-			catch (PositionOccupiedException Exception)
-			{
-				System.out.println("Cannot place vertical Aircraft Carrier here, position is occupied \n");
-			}
-		
-			catch (PositionExceedsBoardException Exception)
-			{
-				System.out.println("Cannot place vertical Aircraft Carrier  here, ship will not fit on grid \n");
-			}
-		
-			catch (InitialPositionOccupiedException Exception)
-			{
-				System.out.println("Cannot place vertical Aircraft Carrier here, initial point is already occupied \n");
-			}
-		}
 	}
 
 

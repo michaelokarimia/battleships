@@ -19,7 +19,7 @@ public class WhenASubmarineIsDeployed {
 	public void setup()
 	{
 		grid = new Grid(10, 10);
-		AircraftCarrier ac = new AircraftCarrier(grid, 5,5,0);
+		AircraftCarrier ac = new AircraftCarrier(grid, 5,5,true);
 		isHorizontal = true;
 	}
 	
@@ -51,7 +51,7 @@ public class WhenASubmarineIsDeployed {
 		assertTrue(sub.isSunk());
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = PositionExceedsBoardException.class)
 	public void throwsExceptionWhenPlacementCoordinatesAreLargerThanTheGrid()
 	{
 		Submarine sub = new Submarine( grid , 11, 11, isHorizontal);

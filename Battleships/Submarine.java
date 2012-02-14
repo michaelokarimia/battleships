@@ -38,14 +38,11 @@ public class Submarine extends Ship implements Serializable {
 		boolean subPlaced = board.checkSubPlaced();
 
 		if (subPlaced == true)
-			System.out.println("Submarine already placed\n");
-
-		if (subPlaced == true)
-			System.out.println("Submarine already placed\n");
-
-		if (subPlaced == false && isHorizontal) {
-			if (board.getGridVal(i, j) != 0)
-				throw new InitialPositionOccupiedException();
+			{	
+				System.out.println("Submarine already placed\n");
+				return;
+			}
+		if (isHorizontal) {
 			if (j + 3 > userColumn)
 				throw new PositionExceedsBoardException();
 

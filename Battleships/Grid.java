@@ -189,6 +189,37 @@ public class Grid implements Serializable
 	}
 	
 	/**
+	Adds an Air object to the grid
+*/
+
+public boolean addAir(int i, int j, int s)
+{
+	boolean isHorizontal = (s == 0);
+	
+	try
+	{
+				aircraftCarrier = new AircraftCarrier(this, i, j, isHorizontal);
+	}
+	
+	catch (PositionOccupiedException Exception)
+	{
+		System.out.println(String.format("Cannot place %s Aircraft Carrier here, position is occupied \n", (isHorizontal? "horizontal" : "vertical")));
+	}
+	
+	catch (PositionExceedsBoardException Exception)
+	{
+		System.out.println(String.format("Cannot place %s Aircraft Carrier here, ship will not fit on grid \n", (isHorizontal? "horizontal" : "vertical")));
+	}
+	
+ 
+	 
+	 return checkAirPlaced();
+		
+}
+
+	
+	
+	/**
 		Adds a Submarine object to the grid
 	*/
 	
@@ -212,15 +243,8 @@ public class Grid implements Serializable
 		{
 			System.out.println(String.format("Cannot place %s submarine here, ship will not fit on grid \n", (isHorizontal? "horizontal" : "vertical")));
 		}
-		
-		catch (InitialPositionOccupiedException Exception)
-		{
-			System.out.println(String.format("Cannot place %s submarine here, initial point is already occupied \n", (isHorizontal? "horizontal" : "vertical")));
-		}
-			 
-		 
-		  
-		
+
+
 		 return checkSubPlaced();
 	}
 	
@@ -318,16 +342,6 @@ public class Grid implements Serializable
 	
 	
 	
-	/**
-		Adds an Air object to the grid
-	*/
-	
-	public boolean addAir(int i, int j, int s)
-	{
-		 aircraftCarrier = new AircraftCarrier(this, i, j, s);
-		 return checkAirPlaced();
-			
-	}
 	
 	/**
 		This method is used by the ship classes to add the ships to the grid.

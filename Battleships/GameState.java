@@ -282,22 +282,6 @@ public class GameState {
 		return agentTurn && ! playerTurn;
 	}
 
-	public void deployVessel(int i, int j, int orientation) {
-		if(isBothPlayerAndAgentShipsDeployed())
-			return;
-		if(!playerShipsdeployed)
-		{
-			if(!playerHomeGrid.checkAirPlaced())
-				playerHomeGrid.addAir(i, j,orientation);
-			if(!playerHomeGrid.checkBattlePlaced())
-				playerHomeGrid.addBattle(i, j, orientation);
-			if(!playerHomeGrid.checkDestPlaced())
-				playerHomeGrid.addDest(i, j, orientation);
-			if(!playerHomeGrid.checkSubPlaced())
-				playerHomeGrid.addSub(i, j, orientation);
-			if(!playerHomeGrid.checkMinePlaced())
-				playerHomeGrid.addMine(i, j, orientation);
-		}
-	}
+	
 	
 }
