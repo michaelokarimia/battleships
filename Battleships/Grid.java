@@ -162,7 +162,23 @@ public class Grid implements Serializable
 	
 	public boolean addMine(int i, int j, int s)
 	{
-		minesweeper = new Minesweeper(this, i, j, s);
+		boolean isHorizontal = (s == 0);
+		
+		try
+		{
+			minesweeper = new Minesweeper(this, i, j, isHorizontal);
+		}
+		
+		catch (PositionOccupiedException Exception)
+		{
+			System.out.println(String.format("Cannot place %s Minesweeper here, position is occupied \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+		
+		catch (PositionExceedsBoardException Exception)
+		{
+			System.out.println(String.format("Cannot place %s Minesweeper here, ship will not fit on grid \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+
 		return checkMinePlaced();
 	}
 	
@@ -211,7 +227,7 @@ public boolean addAir(int i, int j, int s)
 		System.out.println(String.format("Cannot place %s Aircraft Carrier here, ship will not fit on grid \n", (isHorizontal? "horizontal" : "vertical")));
 	}
 	
- 
+
 	 
 	 return checkAirPlaced();
 		
@@ -275,8 +291,24 @@ public boolean addAir(int i, int j, int s)
 	
 	public boolean addDest(int i, int j, int s)
 	{
-		 destroyer = new Destroyer(this, i, j, s);
-			return checkDestPlaced();
+		boolean isHorizontal = (s == 0);
+		
+		try
+		{
+			 destroyer = new Destroyer(this, i, j, isHorizontal);
+		}
+		
+		catch (PositionOccupiedException Exception)
+		{
+			System.out.println(String.format("Cannot place %s destroyer here, position is occupied \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+		
+		catch (PositionExceedsBoardException Exception)
+		{
+			System.out.println(String.format("Cannot place %s destroyer here, ship will not fit on grid \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+		
+		return checkDestPlaced();
 	}
 		
 	
@@ -284,12 +316,9 @@ public boolean addAir(int i, int j, int s)
 		Checks if the Battleship has been placed
 	*/
 		public boolean checkBattlePlaced()
-	{
-		if (battlePlaced == true)
-			return true;
-		
-		else return false;
-	}
+		{
+			return battlePlaced;
+		}
 	/**
 		Sets battlePlaced flag to true
 	*/
@@ -305,7 +334,22 @@ public boolean addAir(int i, int j, int s)
 	
 	public boolean addBattle(int i, int j, int s)
 	{
-		 battleship = new Battleship(this, i, j, s);
+		boolean isHorizontal = (s == 0);
+		
+		try
+		{
+			 battleship = new Battleship(this, i, j, isHorizontal);
+		}
+		
+		catch (PositionOccupiedException Exception)
+		{
+			System.out.println(String.format("Cannot place %s battleship here, position is occupied \n", (isHorizontal? "horizontal" : "vertical")));
+		}
+		
+		catch (PositionExceedsBoardException Exception)
+		{
+			System.out.println(String.format("Cannot place %s battleship here, ship will not fit on grid \n", (isHorizontal? "horizontal" : "vertical")));
+		}
 			return checkBattlePlaced();
 	}
 	

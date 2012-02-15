@@ -42,8 +42,6 @@ public class AircraftCarrier extends Ship implements Serializable
 		
 			if(isHorizontal)
 			{
-				if(board.getGridVal(i,j) != 0)
-					throw new InitialPositionOccupiedException();
 				if(j+5>userColumn)
 					throw new PositionExceedsBoardException();
 			
