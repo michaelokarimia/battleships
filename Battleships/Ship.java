@@ -27,10 +27,7 @@ public abstract class Ship implements Serializable
 	*/
 	public boolean isSunk()
 	{
-		if (segments == 0)
-			return true;
-		else
-			return false;
+		return (segments == 0);
 	}
 	
 	
