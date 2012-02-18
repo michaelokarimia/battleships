@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Battleships.AircraftCarrier;
-import Battleships.Destroyer;
 import Battleships.Grid;
+import Battleships.Ships.AircraftCarrier;
+import Battleships.Ships.Destroyer;
 import Battleships.exception.PositionExceedsBoardException;
 import Battleships.exception.PositionOccupiedException;
 

@@ -13,7 +13,7 @@ package Battleships;
 
 import java.io.Serializable;
 
-import Battleships.exception.InitialPositionOccupiedException;
+import Battleships.Ships.*;
 import Battleships.exception.PositionExceedsBoardException;
 import Battleships.exception.PositionOccupiedException;
 	

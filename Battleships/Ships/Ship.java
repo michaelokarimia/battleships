@@ -1,4 +1,4 @@
-package Battleships;
+package Battleships.Ships;
 /*
  * Author: Michael
  * Created: 07 December 2004 15:52:31
@@ -6,6 +6,8 @@ package Battleships;
  */
 
 import java.io.Serializable;
+
+import Battleships.Grid;
 
 
 public abstract class Ship implements Serializable

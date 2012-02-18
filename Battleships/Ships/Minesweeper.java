@@ -1,4 +1,4 @@
-package Battleships;
+package Battleships.Ships;
 /*
  * Author: Michael
  * Created: 05 December 2004 18:57:44
@@ -6,6 +6,7 @@ package Battleships;
  */
 import java.io.Serializable;
 
+import Battleships.Grid;
 import Battleships.exception.PositionExceedsBoardException;
 import Battleships.exception.PositionOccupiedException;
 

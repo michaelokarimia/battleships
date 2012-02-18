@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Battleships.AircraftCarrier;
 import Battleships.Grid;
-import Battleships.Minesweeper;
+import Battleships.Ships.AircraftCarrier;
+import Battleships.Ships.Minesweeper;
 import Battleships.exception.*;
 
 public class WhenAMinesweeperIsDeployed {

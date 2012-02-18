@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Battleships.AircraftCarrier;
 import Battleships.Grid;
-import Battleships.Submarine;
+import Battleships.Ships.AircraftCarrier;
+import Battleships.Ships.Submarine;
 import Battleships.exception.*;
 
 public class WhenASubmarineIsDeployed {
