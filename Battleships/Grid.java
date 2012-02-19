@@ -12,6 +12,7 @@ package Battleships;
  */
 
 import java.io.Serializable;
+import java.util.concurrent.ExecutionException;
 
 import Battleships.Ships.*;
 import Battleships.exception.PositionExceedsBoardException;
@@ -620,6 +621,44 @@ public boolean addAir(int i, int j, int s)
 	}
 	public boolean isAirPlaced() {
 		return airPlaced;
+	}
+	public boolean checkIsShipPlaced(Ship ship) {
+		Class<? extends Ship> shipclass = ship.getClass();
+		if(shipclass.equals(AircraftCarrier.class))
+			return airPlaced;
+		if(shipclass.equals(Battleship.class))
+			return battlePlaced;
+		if(shipclass.equals(Destroyer.class))
+			return destPlaced;
+		if(shipclass.equals(Submarine.class))
+			return subPlaced;
+		if(shipclass.equals(Minesweeper.class))
+			return minePlaced;
+		return false;	
+	}
+	public void setShipAsPlaced(Ship ship) {
+		Class<? extends Ship> shipClass = ship.getClass();
+		if(shipClass.equals(AircraftCarrier.class))
+		{
+			airPlaced = true;
+		}
+		if(shipClass.equals(Battleship.class))
+		{
+			battlePlaced = true;
+		}
+		if(shipClass.equals(Destroyer.class))
+		{
+			destPlaced = true;
+		}
+		if(shipClass.equals(Submarine.class))
+		{
+			subPlaced = true;
+		}
+		if(shipClass.equals(Minesweeper.class))
+		{
+			minePlaced = true;
+		}
+		
 	}
 	
 

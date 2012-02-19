@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import Battleships.Grid;
 import Battleships.Ships.AircraftCarrier;
+import Battleships.Ships.Ship;
 import Battleships.Ships.Submarine;
 import Battleships.exception.*;
 
@@ -25,7 +26,7 @@ public class WhenASubmarineIsDeployed {
 	
 	@Test
 	public void CanBePlacedOnValidPositionOnGrid() {
-		Submarine sub = new Submarine( grid , 1, 1, isHorizontal);
+		Ship sub = new Submarine( grid , 1, 1, isHorizontal);
 		assertNotNull(sub);
 	}
 
@@ -54,31 +55,31 @@ public class WhenASubmarineIsDeployed {
 	@Test(expected = PositionExceedsBoardException.class)
 	public void throwsExceptionWhenPlacementCoordinatesAreLargerThanTheGrid()
 	{
-		Submarine sub = new Submarine( grid , 11, 11, isHorizontal);
+		Ship sub = new Submarine( grid , 11, 11, isHorizontal);
 	}
 	
 	@Test(expected = PositionExceedsBoardException.class)
 	public void throwsExceptionWhenHorizontalPlacedOffTheGrid()
 	{
-		Submarine sub = new Submarine( grid , 9, 9, isHorizontal);
+		Ship sub = new Submarine( grid , 9, 9, isHorizontal);
 	}
 	
 	@Test(expected = PositionExceedsBoardException.class)
 	public void throwsExceptionWhenVerticalPlacedOffTheGrid()
 	{
-		Submarine sub = new Submarine( grid , 9, 9, !isHorizontal);
+		Ship sub = new Submarine( grid , 9, 9, !isHorizontal);
 	}
 	
 	@Test(expected = PositionOccupiedException.class)
 	public void throwsExceptionWhenVerticalOverOtherShipTheGrid()
 	{
-		Submarine sub = new Submarine( grid , 4, 7, !isHorizontal);
+		Ship sub = new Submarine( grid , 4, 7, !isHorizontal);
 	}
 	
 	@Test(expected = PositionOccupiedException.class)
 	public void throwsExceptionWhenHorizontalOverOtherShipTheGrid()
 	{
-		Submarine sub = new Submarine( grid , 5, 4, isHorizontal);
+		Ship sub = new Submarine( grid , 5, 4, isHorizontal);
 	}
 
 	

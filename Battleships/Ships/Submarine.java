@@ -23,77 +23,21 @@ package Battleships.Ships;
 import java.io.Serializable;
 
 import Battleships.Grid;
-import Battleships.exception.PositionExceedsBoardException;
-import Battleships.exception.PositionOccupiedException;
 
 public class Submarine extends Ship implements Serializable {
-	// public Grid board = null;
 	private int segments = 3;
 
 	public Submarine(Grid board, int i, int j, boolean isHorizontal) {
 
-		int userColumn = board.getWidth();
-		int userRow = board.getLength();
-
-		boolean subPlaced = board.checkSubPlaced();
-
-		if (subPlaced == true)
-			{	
-				System.out.println("Submarine already placed\n");
-				return;
-			}
-		if (isHorizontal) {
-			if (j + 3 > userColumn)
-				throw new PositionExceedsBoardException();
-
-			for (int c = j; c < j + 3; c++)
-				while (board.getGridVal(i, c) != 0) {
-					throw new PositionOccupiedException();
-				}
-
-			for (int c = j; c < j + 3; c++)
-				if (board.getGridVal(i, c) == 0) {
-					board.update(i, c, 3);
-					board.setSubPlacedTrue();
-				}
-		}
-
-		else if (subPlaced == false && !isHorizontal) {
-			if (board.getGridVal(i, j) != 0)
-				throw new PositionOccupiedException();
-			if (i + 3 > userRow)
-				throw new PositionExceedsBoardException();
-
-			for (int r = i; r < i + 3; r++)
-				while (board.getGridVal(r, j) != 0) {
-					throw new PositionOccupiedException();
-				}
-
-			for (int r = i; r < i + 3; r++)
-				if (board.getGridVal(r, j) == 0) {
-					board.update(r, j, 3);
-					board.setSubPlacedTrue();
-				}
-		}
+		super.placeShipOnGrid(board, i, j, isHorizontal,segments);
 	}
 
-	/**
-	 * Checks if the ship is sunk.
-	 * 
-	 * @returns a boolean true if it is sunk and false if it is not sunk
-	 */
 	public boolean isSunk() {
-		if (segments == 0)
-			return true;
-		else
-			return false;
+		return (segments == 0);
 	}
 
-	/**
-	 * Reduces the number of undamaged segments of the ship by one when called.
-	 */
 	public void scoreHit() {
-		segments = segments - 1;
+		segments--;
 
 		if (segments < 0)
 			throw new IllegalArgumentException("Segments var is less than 0");
