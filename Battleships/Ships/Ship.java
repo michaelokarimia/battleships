@@ -14,21 +14,6 @@ import Battleships.exception.PositionOccupiedException;
 
 public abstract class Ship implements Serializable
 {
-	public Grid board = null;
-	
-	
-	/**
-		Abstract constructor for ship
-	*/
-	public void Ship()
-	{}
-	
-	/**
-		Checks if the ship is sunk. 
-		
-		@returns a boolean true if it is sunk and false if it is not sunk
-	*/
-
 	protected void placeShipOnGrid(Grid board, int i, int j,
 			boolean isHorizontal, int segments) {
 				int userColumn = board.getWidth();
@@ -50,8 +35,6 @@ public abstract class Ship implements Serializable
 
 	private void placeVerticalShipOnGrid(Grid board, int i, int j,
 			int segments, int userRow) {
-		if (board.getGridVal(i, j) != 0)
-			throw new PositionOccupiedException();
 		if (i + segments > userRow)
 			throw new PositionExceedsBoardException();
 
@@ -95,7 +78,7 @@ public abstract class Ship implements Serializable
 		if(shipclass.equals(Submarine.class))
 			return 3;
 		if(shipclass.equals(Minesweeper.class))
-			return 3;
+			return 2;
 		return 9;
 	}
 }
