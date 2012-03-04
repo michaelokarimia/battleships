@@ -1,5 +1,10 @@
 # Battleships: Play an AI agent in a Java powered GUI
 
+# Please note, this experiment is no longer active and has been superseded by the C\# version which is TDD driven! See: #
+
+New version is at: https://github.com/michaelokarimia/battleshipsMk2
+
+
 This code is from my Dissertation in 2005.
 
 I thought it would be an interesting experiment to take some of the oldest code that I still have and apply the concepts I've learnt from <a href='http://www.amazon.co.uk/gp/product/0132350882/ref=ox_sc_act_title_1?ie=UTF8&m=A3P5ROKL5A1OLE'> Robert Martin's book, Clean Code</a>.
