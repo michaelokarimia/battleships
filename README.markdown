@@ -1,8 +1,8 @@
 # Battleships: Play an AI agent in a Java powered GUI
 
-# Please note, this experiment is no longer active and has been superseded by the C\# version which is TDD driven! See: #
+## Please note, this experiment is no longer active and has been superseded by the C\# version which is TDD driven!##
 
-New version is at: https://github.com/michaelokarimia/battleshipsMk2
+##New version is at: https://github.com/michaelokarimia/battleshipsMk2##
 
 
 This code is from my Dissertation in 2005.
